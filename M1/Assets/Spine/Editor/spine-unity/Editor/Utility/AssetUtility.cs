@@ -111,11 +111,11 @@ namespace Spine.Unity.Editor {
 			// a known "marker" asset that should always be available. Failing to load this asset
 			// means that AssetDatabase is not initialized.
 			AssetUtility.assetsImportedInWrongState.UnionWith(imported);
-			if (AssetDatabaseAvailabilityDetector.IsAssetDatabaseAvailable()) {
-				string[] combinedAssets = AssetUtility.assetsImportedInWrongState.ToArray();
-				AssetUtility.assetsImportedInWrongState.Clear();
-				AssetUtility.ImportSpineContent(combinedAssets, texturesWithoutMetaFile);
-			}
+			//if (AssetDatabaseAvailabilityDetector.IsAssetDatabaseAvailable()) {
+			//	string[] combinedAssets = AssetUtility.assetsImportedInWrongState.ToArray();
+			//	AssetUtility.assetsImportedInWrongState.Clear();
+			//	AssetUtility.ImportSpineContent(combinedAssets, texturesWithoutMetaFile);
+			//}
 		}
 
 		public static bool AssetCanBeModified (string assetPath) {
