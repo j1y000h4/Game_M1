@@ -50,6 +50,9 @@ public class UI_TitleScene : UI_Scene
 
             if (count == totalCount)
             {
+                // DataManager에 있는 LoadJson의 경우 리소스가 다 올라간 상태에서 Load해야한다.
+                Managers.dataManager.Init();
+
                 GetObject((int)GameObjects.StartImage).gameObject.SetActive(true);
                 GetText((int)Texts.DisplayText).text = "Touch To Start";
             }

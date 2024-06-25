@@ -18,6 +18,7 @@ public class DataManager
         TestDic = LoadJson<Data.TestDataLoader, int, Data.TestData>("TestData").MakeDict();
     }
 
+    // Json 불러와서 Deserialize
     private Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
         TextAsset textAsset = Managers.resourceManager.Load<TextAsset>(path);
