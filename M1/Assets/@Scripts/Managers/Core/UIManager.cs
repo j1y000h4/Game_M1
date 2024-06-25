@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class UIManager
         get { return _sceneUI; }
     }
 
+    // Root가 없으면 만들어서 리턴
     public GameObject Root
     {
         get
@@ -30,19 +32,153 @@ public class UIManager
         }
     }
 
+    // Canvas 만들기. 없으면 만들어주기
     public void SetCanvas(GameObject go, bool sort = true, int sortOrder = 0)
     {
         Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
-        if(canvas == null)
+        if (canvas == null)
         {
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.overrideSorting = true;
         }
 
         CanvasScaler cs = go.GetComponent<CanvasScaler>();
-        if (cs != null) 
+        if (cs != null)
         {
             cs.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             cs.referenceResolution = new Vector2(1080, 1920);
         }
+
+        go.GetOrAddComponent<GraphicRaycaster>();
+
+        // Sort 하냐 안하냐
+        // sortOrder에 따라
+        if (sort)
+        {
+            canvas.sortingOrder = _order;
+            _order++;
+        }
+        else
+        {
+            canvas.sortingOrder = sortOrder;
+        }
+    }
+
+    public T GetSceneUI<T>() where T: UI_Base
+    {
+        return _sceneUI as T;
+    }
+
+    public T MakeWorldSpaceUI<T>(Transform parent = null, string name = null) where T: UI_Base
+    {
+        if(string.IsNullOrEmpty(name))
+        {
+            name = typeof(T).Name;
+        }
+
+        GameObject go = Managers.resourceManager.Instantiate($"{name}");
+        if (parent != null)
+        {
+            go.transform.SetParent(parent);
+        }
+
+        Canvas canvas = go.GetOrAddComponent<Canvas>();
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.worldCamera = Camera.main;
+
+        return Util.GetOrAddComponent<T>(go);
+    }
+
+    public T MakeSubItem<T>(Transform parent = null, string name = null, bool pooling = true) where T : UI_Base
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.resourceManager.Instantiate(name, parent, pooling);
+        go.transform.SetParent(parent);
+
+        return Util.GetOrAddComponent<T>(go);
+    }
+
+    public T ShowBaseUI<T>(string name = null) where T : UI_Base
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.resourceManager.Instantiate(name);
+        T baseUI = Util.GetOrAddComponent<T>(go);
+
+        go.transform.SetParent(Root.transform);
+
+        return baseUI;
+    }
+
+    public T ShowSceneUI<T>(string name = null) where T : UI_Scene
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.resourceManager.Instantiate(name);
+        T sceneUI = Util.GetOrAddComponent<T>(go);
+        _sceneUI = sceneUI;
+
+        go.transform.SetParent(Root.transform);
+
+        return sceneUI;
+    }
+
+    public T ShowPopupUI<T>(string name = null) where T : UI_Popup
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.resourceManager.Instantiate(name);
+        T popup = Util.GetOrAddComponent<T>(go);
+        _popupStack.Push(popup);
+
+        go.transform.SetParent(Root.transform);
+
+        return popup;
+    }
+
+    public void ClosePopupUI(UI_Popup popup)
+    {
+        if (_popupStack.Count == 0)
+            return;
+
+        if (_popupStack.Peek() != popup)
+        {
+            Debug.Log("Close Popup Failed!");
+            return;
+        }
+
+        ClosePopupUI();
+    }
+
+    public void ClosePopupUI()
+    {
+        if (_popupStack.Count == 0)
+            return;
+
+        UI_Popup popup = _popupStack.Pop();
+        Managers.resourceManager.Destory(popup.gameObject);
+        _order--;
+    }
+
+    public void CloseAllPopupUI()
+    {
+        while (_popupStack.Count > 0)
+            ClosePopupUI();
+    }
+
+    public int GetPopupCount()
+    {
+        return _popupStack.Count;
+    }
+
+    public void Clear()
+    {
+        CloseAllPopupUI();
+        _sceneUI = null;
+    }
 }

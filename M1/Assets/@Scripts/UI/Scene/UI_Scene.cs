@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 딱 하나만 배치
 public class UI_Scene : UI_Base
 {
     public override bool Init()
