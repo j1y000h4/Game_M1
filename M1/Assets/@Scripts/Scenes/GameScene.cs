@@ -14,6 +14,11 @@ public class GameScene : BaseScene
 
         SceneType = EScene.GameScene;
 
+        GameObject map = Managers.resourceManager.Instantiate("BaseMap");
+        map.transform.position = Vector3.zero;
+        map.name = "@BaseMap";
+        
+
         // Todo
 
         return true;
