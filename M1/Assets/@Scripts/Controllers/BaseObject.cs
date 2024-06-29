@@ -14,6 +14,8 @@ public class BaseObject : InitBase
     public float ColliderRadius { get { return Collider != null ? Collider.radius : 0.0f; } }
     //public float ColliderRadius { get { return Collider?.radius ?? 0.0f; } }
 
+    public Vector3 CenterPosition { get { return transform.position + Vector3.up * ColliderRadius; } }
+
     bool _isLookLeft = false;
     public bool isLookLeft
     {
@@ -41,7 +43,26 @@ public class BaseObject : InitBase
         return true;
     }
 
+    public void TranslateEx(Vector3 dir)
+    {
+        transform.Translate(dir);
+
+        if (dir.x < 0)
+        {
+            isLookLeft = true;
+        }
+        else if (dir.x > 0)
+        {
+            isLookLeft = false;
+        }
+    }
+
     #region Spine
+
+    protected virtual void UpdateAnimation()
+    {
+
+    }
     public void PlayAnimation(int trackIndex, string AnimName, bool loop)
     {
         if (SkeletonAnim == null)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public static class Extension
 {
@@ -27,6 +28,15 @@ public static class Extension
         foreach(Transform child in go.transform)
         {
             Managers.resourceManager.Destory(child.gameObject);
+        }
+    }
+
+    public static void TranslateEx(this Transform transform, Vector3 dir)
+    {
+        BaseObject bo = transform.GetComponent<BaseObject>();
+        if(bo != null)
+        {
+            bo.TranslateEx(dir);
         }
     }
 

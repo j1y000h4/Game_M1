@@ -1,18 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
-public class Creature : MonoBehaviour
+public class Creature : BaseObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public float Speed { get; protected set; } = 1.0f;
+
+    public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
+
+    // state에 따라 애니메이션을 설정하는 게 편하다.
+    protected ECreatureState _creatureState = ECreatureState.None;
+    public virtual ECreatureState CreatureState
     {
-        
+        get { return _creatureState; }
+        set
+        {
+            if (_creatureState != value)
+            {
+                _creatureState = value;
+                UpdateAnimation();
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override bool Init()
     {
-        
+        if (base.Init() == false)
+        {
+            return false;
+        }
+
+        ObjectType = EObjectType.Creature;
+        CreatureState = ECreatureState.Idle;
+
+        return true;
+    }
+
+    protected override void UpdateAnimation()
+    {
+        switch(CreatureState)
+        {
+            case ECreatureState.Idle:
+                PlayAnimation(0, AnimName.IDLE, true);
+                break;
+
+            case ECreatureState.Skill:
+                PlayAnimation(0, AnimName.ATTACK_A, true);
+                break;
+
+            case ECreatureState.Move:
+                PlayAnimation(0, AnimName.MOVE, true);
+                break;
+
+            case ECreatureState.Dead:
+                PlayAnimation(0, AnimName.DEAD, true);
+                Rigidbody.simulated = false;
+                break;
+            default:
+                break;
+        }
     }
 }
