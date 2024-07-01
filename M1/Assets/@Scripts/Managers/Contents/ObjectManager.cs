@@ -111,10 +111,12 @@ public class ObjectManager
             switch (creature.CreatureType)
             {
                 case ECreatureType.Hero:
+                    obj.transform.parent = HeroRoot;
                     Hero hero = creature as Hero;
                     Heroes.Remove(hero);
                     break;
                 case ECreatureType.Monster:
+                    obj.transform.parent = MonsterRoot;
                     Monster monster = creature as Monster;
                     Monsters.Remove(monster);
                     break;

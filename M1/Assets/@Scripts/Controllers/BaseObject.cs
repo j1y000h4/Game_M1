@@ -18,7 +18,7 @@ public class BaseObject : InitBase
 
     public int DataTemplateID { get; set; }
 
-    bool _isLookLeft = false;
+    bool _isLookLeft = true;
     public bool isLookLeft
     {
         get { return _isLookLeft; }
@@ -88,11 +88,11 @@ public class BaseObject : InitBase
 
         if (velocity.x < 0)
         {
-            _isLookLeft = true;
+            isLookLeft = true;
         }
         else if (velocity.x > 0)
         {
-            _isLookLeft = false;
+            isLookLeft = false;
         }
     }
     public void PlayAnimation(int trackIndex, string AnimName, bool loop)
@@ -121,7 +121,7 @@ public class BaseObject : InitBase
             return;
         }
 
-        SkeletonAnim.skeleton.ScaleX = flag ? -1 : 1;
+        SkeletonAnim.Skeleton.ScaleX = flag ? -1 : 1;
     }
     // 애니메이션에 대한 이벤트를 전달/받는 함수
     public virtual void OnAnimEventHandler(TrackEntry trackEntry, Spine.Event e)

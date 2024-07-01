@@ -45,7 +45,7 @@ public class HeroCamp : BaseObject
         // Pviot을 돌려주는 공식
         if (dir != Vector2.zero)
         {
-            float angle = Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI;
+            float angle = Mathf.Atan2(-dir.x, +dir.y) * 180 / Mathf.PI;
             Pivot.eulerAngles = new Vector3(0, 0, angle);
         }
     }

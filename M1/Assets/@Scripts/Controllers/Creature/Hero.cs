@@ -56,7 +56,7 @@ public class Hero : Creature
         private set
         {
             _heroMoveState = value;
-            switch(_heroMoveState)
+            switch(value)
             {
                 case EHeroMoveState.CollectEnv:
                     NeedArrange = true;
@@ -147,9 +147,9 @@ public class Hero : Creature
 
         // 2. 주변 Env 채굴
         Env env = FindClosestInRange(SearchDistance, Managers.objectManager.Envs) as Env;
-        if (creature != null)
+        if (env != null)
         {
-            _target = creature;
+            _target = env;
             CreatureState = ECreatureState.Move;
             HeroMoveState = EHeroMoveState.CollectEnv;
             return;
@@ -219,7 +219,7 @@ public class Hero : Creature
             {
                 HeroMoveState = EHeroMoveState.None;
                 CreatureState = ECreatureState.Idle;
-                NeedArrange = true;
+                NeedArrange = false;
                 return;
             }
             else

@@ -14,7 +14,7 @@ public class GameManager
         set
         {
             _moveDir = value;
-            OnMoveDirChanged?.Invoke(_moveDir);
+            OnMoveDirChanged?.Invoke(value);
         }
     }
 
