@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: 97b0a2f5ecab029469504095027d858d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 6664952532207130206}
   - component: {fileID: 260067250082377200}
   - component: {fileID: 1391892777130291721}
+  - component: {fileID: 3981395017740762887}
   m_Layer: 0
   m_Name: HeroCamp
   m_TagString: Untagged
@@ -233,6 +234,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3981395017740762887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068181674319229042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d4dd309b536be5448ffcb2711b45a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7962883317642074365
 GameObject:
   m_ObjectHideFlags: 0

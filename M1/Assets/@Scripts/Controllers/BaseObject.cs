@@ -14,8 +14,6 @@ public class BaseObject : InitBase
     public Rigidbody2D RigidBody { get; private set; }
 
     public float ColliderRadius { get { return Collider != null ? Collider.radius : 0.0f; } }
-    //public float ColliderRadius { get { return Collider?.radius ?? 0.0f; } }
-
     public Vector3 CenterPosition { get { return transform.position + Vector3.up * ColliderRadius; } }
 
     public int DataTemplateID { get; set; }
@@ -47,19 +45,16 @@ public class BaseObject : InitBase
         return true;
     }
 
-    public void TranslateEx(Vector3 dir)
+    #region Battle
+    public virtual void OnDamaged(BaseObject attacker)
     {
-        transform.Translate(dir);
 
-        if (dir.x < 0)
-        {
-            isLookLeft = true;
-        }
-        else if (dir.x > 0)
-        {
-            isLookLeft = false;
-        }
+    }    
+    public virtual void OnDead(BaseObject attacker)
+    {
+
     }
+    #endregion
 
     #region Spine
     protected virtual void SetSpineAnimation(string dataLabel, int sortingOrder)
@@ -79,6 +74,26 @@ public class BaseObject : InitBase
     protected virtual void UpdateAnimation()
     {
 
+    }
+
+    // RigidBody를 사용하는거라면 유니티 물리를 사용해 이동해주는게 좋다.
+    public void SetRigidBodyVelocity(Vector2 velocity)
+    {
+        if (RigidBody == null)
+        {
+            return;
+        }
+
+        RigidBody.velocity = velocity;
+
+        if (velocity.x < 0)
+        {
+            _isLookLeft = true;
+        }
+        else if (velocity.x > 0)
+        {
+            _isLookLeft = false;
+        }
     }
     public void PlayAnimation(int trackIndex, string AnimName, bool loop)
     {
@@ -108,6 +123,7 @@ public class BaseObject : InitBase
 
         SkeletonAnim.skeleton.ScaleX = flag ? -1 : 1;
     }
+    // 애니메이션에 대한 이벤트를 전달/받는 함수
     public virtual void OnAnimEventHandler(TrackEntry trackEntry, Spine.Event e)
     {
         Debug.Log("OnAnimEventHandler");

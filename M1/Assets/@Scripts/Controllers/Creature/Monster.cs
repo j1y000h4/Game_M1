@@ -40,8 +40,7 @@ public class Monster : Creature
         }
 
         CreatureType = ECreatureType.Monster;
-        //CreatureState = ECreatureState.Idle;
-        Speed = 3.0f;
+        MoveSpeed = 3.0f;
 
         // AI
         StartCoroutine(CoUpdateAI());
@@ -138,14 +137,14 @@ public class Monster : Creature
         {
             // Patrol or Return
             Vector3 dir = (_destPos - transform.position);
-            float moveDist = Mathf.Min(dir.magnitude, Time.deltaTime * Speed);
-            transform.TranslateEx(dir.normalized * moveDist);
 
             // initPos에 거의 가까워지면
             if (dir.sqrMagnitude <= 0.01f)
             {
                 CreatureState = ECreatureState.Idle;
             }
+
+            SetRigidBodyVelocity(dir.normalized * MoveSpeed);
         }
         else
         {
@@ -163,8 +162,7 @@ public class Monster : Creature
             // 공격 범위 밖이라면 추적
             else
             {
-                float moveDist = Mathf.Min(dir.magnitude, Time.deltaTime * Speed);
-                transform.TranslateEx(dir.normalized * moveDist);
+                SetRigidBodyVelocity(dir.normalized * MoveSpeed);
 
                 // 서치 범위 밖이라면 포기하고 제자지로
                 float serachDistanceSqr = SearchDistance * SearchDistance;
@@ -191,7 +189,23 @@ public class Monster : Creature
     }
     protected override void UpdateDead()
     {
-        Debug.Log(" > " + GetType().Name + " / UpdateDead");
+        //Debug.Log(" > " + GetType().Name + " / UpdateDead");
+    }
+    #endregion
+
+    #region Battle
+    public override void OnDamaged(BaseObject attacker)
+    {
+        base.OnDamaged(attacker);
+    }
+
+    public override void OnDead(BaseObject attacker)
+    {
+        base.OnDead(attacker);
+
+        // TODO : Drop Item
+
+        Managers.objectManager.Despawn(this);
     }
     #endregion
 }

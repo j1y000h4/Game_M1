@@ -7,8 +7,6 @@ using static Define;
 
 public class Creature : BaseObject
 {
-    public float Speed { get; protected set; } = 1.0f;
-
     public Data.CreatureData CreatureData { get; protected set; }
     public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
 
@@ -128,6 +126,22 @@ public class Creature : BaseObject
         }
     }
 
+    public void ChangeColliderSize(EColliderSize size = EColliderSize.Normal)
+    {
+        switch(size)
+        {
+            case EColliderSize.Small:
+                Collider.radius = CreatureData.ColliderRadius * 0.8f;
+                break;
+            case EColliderSize.Normal:
+                Collider.radius = CreatureData.ColliderRadius;
+                break;
+            case EColliderSize.Big:
+                Collider.radius = CreatureData.ColliderRadius * 1.2f;
+                break;
+        }
+    }
+
     #region AI
 
     public float UpdateAITick { get; protected set; } = 0.0f;
@@ -190,9 +204,42 @@ public class Creature : BaseObject
     protected virtual void UpdateDead() { }
     #endregion
 
-    protected Coroutine _coWait;
+    #region Battle
+    public override void OnDamaged(BaseObject attacker)
+    {
+        base.OnDamaged(attacker);
+
+        // 예외처리 코드 추가
+        if (attacker.IsValid() == false)
+        {
+            return;
+        }
+
+        // Creature로 캐스팅
+        Creature creature = attacker as Creature;
+        if (creature == null)
+        {
+            return;
+        }
+
+        // Hp를 작성할때 Clamp로 처리해주기
+        float finalDamage = creature.Atk;
+        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp);
+
+        if (Hp <= 0)
+        {
+            OnDead(attacker);
+            CreatureState = ECreatureState.Dead;
+        }
+    }
+    public override void OnDead(BaseObject attacker)
+    {
+        base.OnDead(attacker);
+    }
+    #endregion
 
     #region Wait
+    protected Coroutine _coWait;
     protected void StartWait(float seconds)
     {
         CancelWait();

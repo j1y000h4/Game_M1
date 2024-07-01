@@ -22,20 +22,21 @@ public static class Extension
         return go != null && go.activeSelf;
     }
 
+    public static bool IsValid(this BaseObject bo)
+    {
+        if (bo == null || bo.isActiveAndEnabled == false)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public static void DestroyChilds(this GameObject go)
     {
         foreach(Transform child in go.transform)
         {
             Managers.resourceManager.Destory(child.gameObject);
-        }
-    }
-
-    public static void TranslateEx(this Transform transform, Vector3 dir)
-    {
-        BaseObject bo = transform.GetComponent<BaseObject>();
-        if(bo != null)
-        {
-            bo.TranslateEx(dir);
         }
     }
 

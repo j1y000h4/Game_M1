@@ -59,6 +59,16 @@ public static class Define
         Dead,
     }
 
+    // 상태를 이중으로 관리하는 것도 좋은 방법중 하나다.
+    public enum EHeroMoveState
+    {
+        None,
+        TargetMonster,
+        CollectEnv,
+        ReturnToCamp,
+        ForceMove
+    }
+
     public enum EEnvState
     {
         Idle,
@@ -79,6 +89,13 @@ public static class Define
         GatheringResource = 8,
         Obstacle = 9,
         Projectile = 10,
+    }
+
+    public enum EColliderSize
+    {
+        Small,
+        Normal,
+        Big
     }
 
     public const int CAMERA_PROJECTION_SIZE = 12;
