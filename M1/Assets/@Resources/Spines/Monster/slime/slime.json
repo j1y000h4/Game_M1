@@ -1,0 +1,411 @@
+{
+  "skeleton": {
+	"hash": "pFhBdiZAmm8",
+	"spine": "4.1.24",
+	"x": -22.68,
+	"y": -10.44,
+	"width": 45,
+	"height": 41,
+	"images": "./texture/",
+	"audio": "//Rookiss_NAS/homes/RookissUser/GameTeam/Art/캐릭터/rnd/슬라임"
+  },
+  "bones": [
+	{
+	  "name": "root",
+	  "y": -7.02
+	},
+	{
+	  "name": "body",
+	  "parent": "root",
+	  "length": 21,
+	  "rotation": 90,
+	  "x": -1.9,
+	  "y": 7.44
+	}
+  ],
+  "slots": [
+	{
+	  "name": "body",
+	  "bone": "body",
+	  "attachment": "body"
+	}
+  ],
+  "skins": [
+	{
+	  "name": "default",
+	  "attachments": {
+		"body": {
+		  "body": {
+			"x": 9.64,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 45,
+			"height": 41
+		  },
+		  "body_attack_01": {
+			"x": 6.14,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 48,
+			"height": 34
+		  },
+		  "body_attack_02": {
+			"x": 6.14,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 54,
+			"height": 34
+		  },
+		  "body_attack_03": {
+			"x": 6.14,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 44,
+			"height": 42
+		  },
+		  "body_dead_01": {
+			"x": 6.14,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 54,
+			"height": 27
+		  },
+		  "body_dead_02": {
+			"x": 6.14,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 64,
+			"height": 19
+		  },
+		  "body_idle_1": {
+			"x": 6.14,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 47,
+			"height": 34
+		  },
+		  "body_idle_2": {
+			"x": 6.14,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 50,
+			"height": 29
+		  },
+		  "body_run": {
+			"x": 6.14,
+			"y": -1.72,
+			"rotation": -90,
+			"width": 43,
+			"height": 40
+		  }
+		}
+	  }
+	}
+  ],
+  "events": {
+	"event_attack": {}
+  },
+  "animations": {
+	"attack": {
+	  "slots": {
+		"body": {
+		  "attachment": [
+			{
+			  "time": 0.0667,
+			  "name": "body_attack_02"
+			},
+			{
+			  "time": 0.3,
+			  "name": "body_run"
+			},
+			{
+			  "time": 0.4,
+			  "name": "body_attack_03"
+			}
+		  ]
+		}
+	  },
+	  "bones": {
+		"body": {
+		  "translate": [
+			{
+			  "curve": [
+				0.017,
+				0,
+				0.05,
+				7.32,
+				0.017,
+				0,
+				0.05,
+				0
+			  ]
+			},
+			{
+			  "time": 0.0667,
+			  "x": 7.32,
+			  "curve": "stepped"
+			},
+			{
+			  "time": 0.2333,
+			  "x": 7.32,
+			  "curve": [
+				0.25,
+				7.32,
+				0.283,
+				-29.34,
+				0.25,
+				0,
+				0.283,
+				39.1
+			  ]
+			},
+			{
+			  "time": 0.3,
+			  "x": -29.34,
+			  "y": 39.1,
+			  "curve": [
+				0.325,
+				-29.34,
+				0.375,
+				-72.11,
+				0.325,
+				39.1,
+				0.375,
+				53.77
+			  ]
+			},
+			{
+			  "time": 0.4,
+			  "x": -72.11,
+			  "y": 53.77,
+			  "curve": [
+				0.417,
+				-72.11,
+				0.45,
+				0,
+				0.417,
+				53.77,
+				0.45,
+				0
+			  ]
+			},
+			{
+			  "time": 0.4667
+			}
+		  ]
+		}
+	  },
+	  "events": [
+		{
+		  "time": 0.4,
+		  "name": "event_attack"
+		}
+	  ]
+	},
+	"dead": {
+	  "slots": {
+		"body": {
+		  "rgba": [
+			{
+			  "time": 0.6667,
+			  "color": "ffffff77",
+			  "curve": [
+				0.75,
+				1,
+				0.917,
+				1,
+				0.75,
+				1,
+				0.917,
+				1,
+				0.75,
+				1,
+				0.917,
+				1,
+				0.75,
+				0.47,
+				0.917,
+				0
+			  ]
+			},
+			{
+			  "time": 1,
+			  "color": "ffffff00"
+			}
+		  ],
+		  "attachment": [
+			{
+			  "time": 0.1667,
+			  "name": "body_dead_01"
+			},
+			{
+			  "time": 0.3333,
+			  "name": "body_dead_02"
+			}
+		  ]
+		}
+	  },
+	  "bones": {
+		"body": {
+		  "translate": [
+			{
+			  "curve": [
+				0.083,
+				0,
+				0.25,
+				0,
+				0.083,
+				0,
+				0.25,
+				-2.53
+			  ]
+			},
+			{
+			  "time": 0.3333,
+			  "y": -2.53,
+			  "curve": [
+				0.417,
+				0,
+				0.583,
+				0,
+				0.417,
+				-2.53,
+				0.583,
+				-3.08
+			  ]
+			},
+			{
+			  "time": 0.6667,
+			  "y": -3.08,
+			  "curve": [
+				0.75,
+				0,
+				0.917,
+				0,
+				0.75,
+				-3.08,
+				0.917,
+				-3.85
+			  ]
+			},
+			{
+			  "time": 1,
+			  "y": -3.85
+			}
+		  ]
+		}
+	  }
+	},
+	"idle": {
+	  "slots": {
+		"body": {
+		  "attachment": [
+			{
+			  "time": 0.2667,
+			  "name": "body_idle_1"
+			},
+			{
+			  "time": 0.5,
+			  "name": "body_idle_2"
+			},
+			{
+			  "time": 0.7333,
+			  "name": "body_idle_1"
+			}
+		  ]
+		}
+	  },
+	  "bones": {
+		"body": {
+		  "translate": [
+			{
+			  "curve": [
+				0.125,
+				0,
+				0.375,
+				0,
+				0.125,
+				0,
+				0.375,
+				-1
+			  ]
+			},
+			{
+			  "time": 0.5,
+			  "y": -1,
+			  "curve": [
+				0.625,
+				0,
+				0.875,
+				0,
+				0.625,
+				-1,
+				0.875,
+				0
+			  ]
+			},
+			{
+			  "time": 1
+			}
+		  ]
+		}
+	  }
+	},
+	"move": {
+	  "slots": {
+		"body": {
+		  "attachment": [
+			{
+			  "time": 0.1667,
+			  "name": "body_idle_2"
+			},
+			{
+			  "time": 0.2333,
+			  "name": "body_idle_1"
+			},
+			{
+			  "time": 0.3333,
+			  "name": "body_run"
+			}
+		  ]
+		}
+	  },
+	  "bones": {
+		"body": {
+		  "translate": [
+			{
+			  "time": 0.2333,
+			  "curve": [
+				0.258,
+				0,
+				0.308,
+				0,
+				0.258,
+				0,
+				0.308,
+				44.59
+			  ]
+			},
+			{
+			  "time": 0.3333,
+			  "y": 44.59,
+			  "curve": [
+				0.358,
+				0,
+				0.408,
+				0,
+				0.358,
+				44.59,
+				0.408,
+				0
+			  ]
+			},
+			{
+			  "time": 0.4333
+			}
+		  ]
+		}
+	  }
+	}
+  }
+}

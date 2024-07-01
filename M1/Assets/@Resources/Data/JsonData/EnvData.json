@@ -1,0 +1,30 @@
+{
+  "envs": [
+    {
+      "DataId": 300001,
+      "DescriptionTextID": "나무1",
+      "PrefabLabel": "GatherablePrefab",
+      "MaxHp": 10.0,
+      "ResourceAmount": 1,
+      "RegenTime": 60.0,
+      "SkeletonDataIDs": [
+        "wood_1_SkeletonData",
+        "wood_2_SkeletonData"
+      ],
+      "DropItemId": 400100
+    },
+    {
+      "DataId": 301000,
+      "DescriptionTextID": "미네랄1",
+      "PrefabLabel": "GatherablePrefab",
+      "MaxHp": 10.0,
+      "ResourceAmount": 1,
+      "RegenTime": 60.0,
+      "SkeletonDataIDs": [
+        "wood_1_SkeletonData",
+        "wood_2_SkeletonData"
+      ],
+      "DropItemId": 400200
+    }
+  ]
+}

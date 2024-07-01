@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : InitBase
 {
     private BaseObject _target;
-    public BaseObject Target;
+    public BaseObject Target
     {
         get { return _target; }
         set { _target = value; }

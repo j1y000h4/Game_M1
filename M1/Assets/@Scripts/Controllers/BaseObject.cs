@@ -1,20 +1,24 @@
+using Spine;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using static Define;
 
 public class BaseObject : InitBase
 {
     public EObjectType ObjectType { get; protected set; } = EObjectType.None;
-    public CircleCollider2D Collider { get; protected set; }
-    public SkeletonAnimation SkeletonAnim { get; protected set; }
-    public Rigidbody2D Rigidbody { get; protected set; }
+    public CircleCollider2D Collider { get; private set; }
+    public SkeletonAnimation SkeletonAnim { get; private set; }
+    public Rigidbody2D RigidBody { get; private set; }
 
     public float ColliderRadius { get { return Collider != null ? Collider.radius : 0.0f; } }
     //public float ColliderRadius { get { return Collider?.radius ?? 0.0f; } }
 
     public Vector3 CenterPosition { get { return transform.position + Vector3.up * ColliderRadius; } }
+
+    public int DataTemplateID { get; set; }
 
     bool _isLookLeft = false;
     public bool isLookLeft
@@ -38,7 +42,7 @@ public class BaseObject : InitBase
         // GetOrAddComponent 없으면 추가
         Collider = gameObject.GetOrAddComponent<CircleCollider2D>();
         SkeletonAnim = GetComponent<SkeletonAnimation>();
-        Rigidbody = GetComponent<Rigidbody2D>();
+        RigidBody = GetComponent<Rigidbody2D>();
 
         return true;
     }
@@ -58,6 +62,19 @@ public class BaseObject : InitBase
     }
 
     #region Spine
+    protected virtual void SetSpineAnimation(string dataLabel, int sortingOrder)
+    {
+        if (SkeletonAnim == null)
+            return;
+
+        SkeletonAnim.skeletonDataAsset = Managers.resourceManager.Load<SkeletonDataAsset>(dataLabel);
+        SkeletonAnim.Initialize(true);
+
+        // Spine SkeletonAnimation은 SpriteRenderer 를 사용하지 않고 MeshRenderer을 사용함
+        // 그렇기떄문에 2D Sort Axis가 안먹히게 되는데 SortingGroup을 SpriteRenderer,MeshRenderer을 같이 계산함.
+        SortingGroup sg = Util.GetOrAddComponent<SortingGroup>(gameObject);
+        sg.sortingOrder = sortingOrder;
+    }
 
     protected virtual void UpdateAnimation()
     {
@@ -90,6 +107,10 @@ public class BaseObject : InitBase
         }
 
         SkeletonAnim.skeleton.ScaleX = flag ? -1 : 1;
+    }
+    public virtual void OnAnimEventHandler(TrackEntry trackEntry, Spine.Event e)
+    {
+        Debug.Log("OnAnimEventHandler");
     }
     #endregion
 }

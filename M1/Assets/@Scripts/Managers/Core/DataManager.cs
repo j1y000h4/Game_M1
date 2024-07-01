@@ -10,12 +10,14 @@ public interface ILoader<Key,Value>
 
 public class DataManager
 {
-    public Dictionary<int, Data.TestData> TestDic { get; private set; } = new Dictionary<int, Data.TestData>();
+    public Dictionary<int, Data.CreatureData> CreatureDic { get; private set; } = new Dictionary<int, Data.CreatureData>();
+    public Dictionary<int, Data.EnvData> EnvDic { get; private set; } = new Dictionary<int, Data.EnvData>();
 
     public void Init()
     {
         // 데이터를 긁어오는 부분
-        TestDic = LoadJson<Data.TestDataLoader, int, Data.TestData>("TestData").MakeDict();
+        CreatureDic = LoadJson<Data.CreatureDataLoader, int, Data.CreatureData>("CreatureData").MakeDict();
+        EnvDic = LoadJson<Data.EnvDataLoader, int, Data.EnvData>("EnvData").MakeDict();
     }
 
     // Json 불러와서 Deserialize

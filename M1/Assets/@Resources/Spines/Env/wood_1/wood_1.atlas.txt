@@ -1,0 +1,27 @@
+
+wood_1.png
+size: 168,220
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shadow
+  rotate: false
+  xy: 87, 113
+  size: 76, 25
+  orig: 76, 25
+  offset: 0, 0
+  index: -1
+wood_1
+  rotate: false
+  xy: 2, 2
+  size: 83, 213
+  orig: 83, 213
+  offset: 0, 0
+  index: -1
+wood_dead
+  rotate: false
+  xy: 87, 140
+  size: 77, 75
+  orig: 77, 75
+  offset: 0, 0
+  index: -1

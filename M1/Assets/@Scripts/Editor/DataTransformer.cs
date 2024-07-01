@@ -17,63 +17,11 @@ public class DataTransformer : EditorWindow
     [MenuItem("Tools/ParseExcel %#K")]
     public static void ParseExcelDataToJson()
     {
-        ParseExcelDataToJson<TestDataLoader, TestData>("Test");
-        //LEGACY_ParseTestData("Test");
+        ParseExcelDataToJson<CreatureDataLoader, CreatureData>("Creature");
+        ParseExcelDataToJson<EnvDataLoader, EnvData>("Env");
 
         Debug.Log("DataTransformer Completed");
     }
-
-    #region LEGACY
-    // LEGACY !
-    public static T ConvertValue<T>(string value)
-    {
-        if (string.IsNullOrEmpty(value))
-            return default(T);
-
-        TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
-        return (T)converter.ConvertFromString(value);
-    }
-
-    // 기입할 내용이 많으니 이걸 함수로 만들어서 사용
-    public static List<T> ConvertList<T>(string value)
-    {
-        if (string.IsNullOrEmpty(value))
-            return new List<T>();
-
-        return value.Split('&').Select(x => ConvertValue<T>(x)).ToList();
-    }
-
-    // 메모리 상에 있는 것을 Json이라는 string으로 만들어서 text 저장
-    static void LEGACY_ParseTestData(string filename)
-    {
-        TestDataLoader loader = new TestDataLoader();
-
-        string[] lines = File.ReadAllText($"{Application.dataPath}/@Resources/Data/ExcelData/{filename}Data.csv").Split("\n");
-
-        for (int y = 1; y < lines.Length; y++)
-        {
-            string[] row = lines[y].Replace("\r", "").Split(',');
-            if (row.Length == 0)
-                continue;
-            if (string.IsNullOrEmpty(row[0]))
-                continue;
-
-            int i = 0;
-            TestData testData = new TestData();
-            testData.Level = ConvertValue<int>(row[i++]);
-            testData.Exp = ConvertValue<int>(row[i++]);
-            testData.Skills = ConvertList<int>(row[i++]);
-            testData.Speed = ConvertValue<float>(row[i++]);
-            testData.Name = ConvertValue<string>(row[i++]);
-
-            loader.tests.Add(testData);
-        }
-
-        string jsonStr = JsonConvert.SerializeObject(loader, Formatting.Indented);
-        File.WriteAllText($"{Application.dataPath}/@Resources/Data/JsonData/{filename}Data.json", jsonStr);
-        AssetDatabase.Refresh();
-    }
-    #endregion
 
     #region Helpers
     // Legacy에 있는 함수들을 더욱 간단하게 처리한 함수

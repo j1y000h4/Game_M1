@@ -28,20 +28,12 @@ public class Hero : Creature
 
     private void Update()
     {
-        transform.Translate(_moveDir * Time.deltaTime * Speed);
+        transform.TranslateEx(_moveDir * Time.deltaTime * Speed);
     }
 
     private void HandleOnMoveDirChanged(Vector2 dir)
     {
         _moveDir = dir;
-        if (_moveDir.x < 0)
-        {
-            isLookLeft = true;
-        }
-        else if (_moveDir.x > 0)
-        {
-            isLookLeft = false;
-        }
     }
     private void HandleOnJoystickStateChanged(EJoystickState joystickState)
     {
@@ -54,6 +46,8 @@ public class Hero : Creature
                 break;
             case EJoystickState.PointerUp:
                 CreatureState = ECreatureState.Idle;
+                break;
+            default:
                 break;
         }
     }

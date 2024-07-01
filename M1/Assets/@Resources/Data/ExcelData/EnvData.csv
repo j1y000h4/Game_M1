@@ -1,0 +1,3 @@
+﻿DataId,DescriptionTextID,PrefabLabel,MaxHp,ResourceAmount,RegenTime,SpineNames,DropItemId
+300001,나무1,GatherablePrefab,10,1,60,wood_1_SkeletonData&wood_2_SkeletonData,400100
+301000,미네랄1,GatherablePrefab,10,1,60,wood_1_SkeletonData&wood_2_SkeletonData,400200

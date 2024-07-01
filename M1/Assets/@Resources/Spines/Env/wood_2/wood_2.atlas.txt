@@ -1,0 +1,13 @@
+wood_2.png
+size:208,428
+filter:Linear,Linear
+pma:true
+shadow
+bounds:2,384,90,40
+offsets:32,18,156,73
+wood_1
+bounds:2,2,203,369
+offsets:61,174,288,560
+wood_dead
+bounds:94,373,61,51
+offsets:6,12,77,75
