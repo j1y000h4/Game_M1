@@ -17,7 +17,7 @@ public class DataManager
     public void Init()
     {
         // 데이터를 긁어오는 부분
-        MonsterDic = LoadJson<Data.MonsterDataLoader,int, Data.MonsterData>("MonsterData").MakeDict();
+        MonsterDic = LoadJson<Data.MonsterDataLoader, int, Data.MonsterData>("MonsterData").MakeDict();
         HeroDic = LoadJson<Data.HeroDataLoader, int, Data.HeroData>("HeroData").MakeDict();
         EnvDic = LoadJson<Data.EnvDataLoader, int, Data.EnvData>("EnvData").MakeDict();
     }
