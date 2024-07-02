@@ -1,0 +1,139 @@
+
+001.png
+size: 424,204
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 194, 6
+  size: 55, 50
+  orig: 61, 56
+  offset: 3, 3
+  index: -1
+cape_01
+  rotate: false
+  xy: 234, 80
+  size: 69, 51
+  orig: 75, 57
+  offset: 3, 3
+  index: -1
+cape_02
+  rotate: false
+  xy: 305, 80
+  size: 67, 51
+  orig: 73, 57
+  offset: 3, 3
+  index: -1
+cape_03
+  rotate: false
+  xy: 117, 5
+  size: 75, 51
+  orig: 81, 57
+  offset: 3, 3
+  index: -1
+effect
+  rotate: false
+  xy: 2, 11
+  size: 113, 191
+  orig: 120, 199
+  offset: 3, 4
+  index: -1
+head
+  rotate: false
+  xy: 117, 98
+  size: 115, 104
+  orig: 121, 110
+  offset: 3, 3
+  index: -1
+l_calf
+  rotate: false
+  xy: 360, 48
+  size: 28, 30
+  orig: 36, 36
+  offset: 5, 3
+  index: -1
+l_lowerarm_001
+  rotate: false
+  xy: 378, 159
+  size: 36, 43
+  orig: 42, 49
+  offset: 3, 3
+  index: -1
+l_thigh
+  rotate: false
+  xy: 378, 117
+  size: 35, 40
+  orig: 41, 46
+  offset: 3, 3
+  index: -1
+l_upperarm_001
+  rotate: false
+  xy: 369, 2
+  size: 25, 44
+  orig: 31, 50
+  offset: 3, 3
+  index: -1
+pelvis
+  rotate: false
+  xy: 303, 41
+  size: 55, 37
+  orig: 61, 43
+  offset: 3, 3
+  index: -1
+r_calf
+  rotate: false
+  xy: 342, 5
+  size: 25, 34
+  orig: 31, 40
+  offset: 3, 3
+  index: -1
+r_lowerarm_001
+  rotate: false
+  xy: 303, 2
+  size: 37, 37
+  orig: 43, 43
+  offset: 3, 3
+  index: -1
+r_thigh
+  rotate: false
+  xy: 374, 81
+  size: 35, 34
+  orig: 41, 40
+  offset: 3, 3
+  index: -1
+r_upperarm_001
+  rotate: false
+  xy: 390, 52
+  size: 32, 27
+  orig: 38, 33
+  offset: 3, 3
+  index: -1
+shadow
+  rotate: false
+  xy: 117, 58
+  size: 112, 38
+  orig: 118, 44
+  offset: 3, 3
+  index: -1
+shield _b
+  rotate: false
+  xy: 234, 133
+  size: 70, 69
+  orig: 76, 75
+  offset: 3, 3
+  index: -1
+shield_f
+  rotate: false
+  xy: 306, 133
+  size: 70, 69
+  orig: 76, 75
+  offset: 3, 3
+  index: -1
+weapon
+  rotate: false
+  xy: 251, 30
+  size: 50, 48
+  orig: 56, 54
+  offset: 3, 3
+  index: -1

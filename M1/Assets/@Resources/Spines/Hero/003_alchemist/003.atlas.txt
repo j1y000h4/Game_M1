@@ -1,0 +1,153 @@
+
+003.png
+size: 224,272
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+book
+  rotate: false
+  xy: 130, 59
+  size: 53, 39
+  orig: 59, 45
+  offset: 3, 3
+  index: -1
+hair_b
+  rotate: false
+  xy: 2, 140
+  size: 91, 130
+  orig: 97, 136
+  offset: 3, 3
+  index: -1
+hair_f
+  rotate: false
+  xy: 2, 59
+  size: 62, 79
+  orig: 68, 85
+  offset: 3, 3
+  index: -1
+hat
+  rotate: false
+  xy: 95, 173
+  size: 92, 57
+  orig: 98, 63
+  offset: 3, 3
+  index: -1
+head
+  rotate: false
+  xy: 66, 39
+  size: 62, 59
+  orig: 68, 65
+  offset: 3, 3
+  index: -1
+l_calf
+  rotate: false
+  xy: 93, 2
+  size: 21, 35
+  orig: 27, 41
+  offset: 3, 3
+  index: -1
+l_cloth
+  rotate: false
+  xy: 165, 101
+  size: 39, 70
+  orig: 45, 76
+  offset: 3, 3
+  index: -1
+l_hand
+  rotate: false
+  xy: 139, 7
+  size: 17, 18
+  orig: 23, 24
+  offset: 3, 3
+  index: -1
+l_lowerarm_01
+  rotate: false
+  xy: 185, 62
+  size: 30, 37
+  orig: 36, 43
+  offset: 3, 3
+  index: -1
+l_thigh
+  rotate: false
+  xy: 197, 31
+  size: 21, 29
+  orig: 27, 35
+  offset: 3, 3
+  index: -1
+l_upperarm_01
+  rotate: false
+  xy: 176, 25
+  size: 19, 32
+  orig: 25, 38
+  offset: 3, 3
+  index: -1
+lowerbody
+  rotate: false
+  xy: 2, 11
+  size: 49, 46
+  orig: 55, 52
+  offset: 3, 3
+  index: -1
+r_calf
+  rotate: false
+  xy: 116, 2
+  size: 21, 35
+  orig: 27, 41
+  offset: 3, 3
+  index: -1
+r_cloth
+  rotate: false
+  xy: 95, 100
+  size: 68, 71
+  orig: 74, 77
+  offset: 3, 3
+  index: -1
+r_hand
+  rotate: false
+  xy: 206, 214
+  size: 16, 16
+  orig: 22, 22
+  offset: 3, 3
+  index: -1
+r_lowerarm_01
+  rotate: false
+  xy: 139, 27
+  size: 35, 30
+  orig: 41, 36
+  offset: 3, 3
+  index: -1
+r_thigh
+  rotate: false
+  xy: 197, 3
+  size: 23, 26
+  orig: 30, 32
+  offset: 4, 3
+  index: -1
+r_upperarm_01
+  rotate: false
+  xy: 66, 103
+  size: 21, 35
+  orig: 27, 41
+  offset: 3, 3
+  index: -1
+shadow
+  rotate: false
+  xy: 95, 232
+  size: 112, 38
+  orig: 118, 44
+  offset: 3, 3
+  index: -1
+upperbody
+  rotate: false
+  xy: 53, 2
+  size: 38, 35
+  orig: 44, 41
+  offset: 3, 3
+  index: -1
+weapon
+  rotate: false
+  xy: 189, 184
+  size: 15, 46
+  orig: 21, 52
+  offset: 3, 3
+  index: -1

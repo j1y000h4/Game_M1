@@ -47,7 +47,7 @@ public class ObjectManager
         {
             // Data Check 예외처리
             // templateID가 맞지 않을 수도 있으니 한번 더 체크해준다.
-            if (templateID != 0 && Managers.dataManager.CreatureDic.TryGetValue(templateID, out Data.CreatureData data) == false)
+            if (templateID != 0 && Managers.dataManager.MonsterDic.TryGetValue(templateID, out Data.MonsterData data) == false)
             {
                 Debug.LogError($"ObjectManager Spawn Creature Failed !! TryGetValue TemplateID : {templateID}");
                 return null;
