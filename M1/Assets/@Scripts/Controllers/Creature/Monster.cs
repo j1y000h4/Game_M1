@@ -64,9 +64,8 @@ public class Monster : Creature
 
     #region AI
     // 일단은 하드코딩. 추후에는 Data로 빼주는게 맞다.
-    public float SearchDistance { get; private set; } = 8.0f;
     public float AttackDistance { get; private set; } = 4.0f;
-    Creature _target;
+
     Vector3 _destPos;
     Vector3 _initPos;
 
@@ -89,51 +88,22 @@ public class Monster : Creature
 
         // Serach Player
         {
-            Creature target = null;
-
-            // 가장 가까이 있는 target을 구하기 위해 초기값을 최대값으로 설정
-            float bestDistanceSqr = float.MaxValue;
-            float searchDistanceSqr = SearchDistance * SearchDistance;
-
-
-            foreach (Hero hero in Managers.objectManager.Heroes)
+            Creature creature = FindClosestInRange(MONSTER_SEARCH_DISTANCE, Managers.objectManager.Heroes, func: IsValid) as Creature;
+            if (creature != null)
             {
-                Vector3 dir = hero.transform.position - transform.position;
-                float distToTargetSqr = dir.sqrMagnitude;
-
-                //Debug.Log(" > " + GetType().Name + " / UpdateIdle / DistToTargetSqr : " + distToTargetSqr);
-
-                // 서치 범위보다 타겟이 더 먼 곳에 있으면 스킵
-                if (distToTargetSqr > searchDistanceSqr)
-                {
-                    continue;
-                }
-
-                // 현재 타겟보다 더 먼게 잡히면 스킵
-                if (distToTargetSqr > bestDistanceSqr)
-                {
-                    continue; 
-                }
-
-                target = hero;
-                bestDistanceSqr = distToTargetSqr;
-            }
-
-            _target = target;
-
-            // 같이 일어나야 해서 묶여야 될 부분을 따로따로 코드로 작업하면 유지보수에서 실수할 가능성이 높다.
-            if (_target != null)
-            {
+                Target = creature;
                 CreatureState = ECreatureState.Move;
+                return;
             }
         }
+        
     }
     protected override void UpdateMove()
     {
         //Debug.Log(" > " + GetType().Name + " / UpdateMove");
 
         // 타겟이 사라지면or없어지면
-        if (_target == null)
+        if (Target == null)
         {
             // Patrol or Return
             Vector3 dir = (_destPos - transform.position);
@@ -149,36 +119,19 @@ public class Monster : Creature
         else
         {
             // Chase
-            Vector3 dir = (_target.transform.position - transform.position);
-            float distToTargetSqr = dir.sqrMagnitude;
-            float attackDistanceSqr = AttackDistance * AttackDistance;
+            ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, 5.0f);
 
-            // 공격 범위 이내로 들어왔으면 공격한다.
-            if (distToTargetSqr < attackDistanceSqr)
+            // 너무 멀어지면 포기
+            if (Target.IsValid() == false)
             {
-                CreatureState = ECreatureState.Skill;
-                StartWait(2.0f);
-            }
-            // 공격 범위 밖이라면 추적
-            else
-            {
-                SetRigidBodyVelocity(dir.normalized * MoveSpeed);
-
-                // 서치 범위 밖이라면 포기하고 제자지로
-                float serachDistanceSqr = SearchDistance * SearchDistance;
-                if (distToTargetSqr > serachDistanceSqr)
-                {
-                    _destPos = _initPos;
-                    _target = null;
-                    CreatureState = ECreatureState.Move;
-                }
+                Target = null;
+                _destPos = _initPos;
+                return;
             }
         }
     }
     protected override void UpdateSkill()
     {
-        //Debug.Log(" > " + GetType().Name + " / UpdateSkill");
-
         // _coWait가 null이 아니면 기다리고 있다는 뜻
         if (_coWait != null)
         {
