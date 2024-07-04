@@ -97,6 +97,47 @@ namespace Data
     }
     #endregion
 
+    #region SkillData
+    [Serializable]
+    public class SkillData
+    {
+        public int DataId;
+        public string Name;
+        public string ClassName;
+        public string ComponentName;
+        public string Description;
+        public int ProjectileId;
+        public string PrefabLabel;
+        public string IconLabel;
+        public string AnimName;
+        public float CoolTime;
+        public float DamageMultiplier;
+        public float Duration;
+        public float NumProjectiles;
+        public string CastingSound;
+        public float AngleBetweenProj;
+        public float SkillRange;
+        public float RotateSpeed;
+        public float ScaleMultiplier;
+        public float AngleRange;
+    }
+
+    [Serializable]
+    public class SkillDataLoader : ILoader<int, SkillData>
+    {
+        public List<SkillData> skills = new List<SkillData>();
+
+        public Dictionary<int, SkillData> MakeDict()
+        {
+            Dictionary<int, SkillData> dict = new Dictionary<int, SkillData>();
+            foreach (SkillData skill in skills)
+                dict.Add(skill.DataId, skill);
+            return dict;
+        }
+    }
+    #endregion
+
+
     #region Env
     [Serializable]
     public class EnvData

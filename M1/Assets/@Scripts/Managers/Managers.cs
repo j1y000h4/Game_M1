@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
+    // 단 한번만 초기화 하겠다는 flag
+    public static bool Initialized { get; set; } = false;
+
     // 싱글톤
     private static Managers s_instance;
     private static Managers Instance { get { Init(); return s_instance; } }
@@ -34,8 +37,10 @@ public class Managers : MonoBehaviour
 
     public static void Init()
     {
-        if(s_instance == null)
+        if(s_instance == null && Initialized == false)
         {
+            Initialized = true;
+
             GameObject go = GameObject.Find("@Managers");
             if(go == null)
             {

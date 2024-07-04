@@ -98,6 +98,10 @@ public class Hero : Creature
 
         // State
         CreatureState = ECreatureState.Idle;
+
+        // Skill
+        Skills = gameObject.GetOrAddComponent<SkillComponent>();
+        Skills.SetInfo(this, CreatureData.SkillIdList);
     }
 
     public Transform HeroCampDest
@@ -115,14 +119,6 @@ public class Hero : Creature
     }
 
     #region AI
-    public float AttackDistance
-    {
-        get
-        {
-            float targetRadius = (Target.IsValid() ? Target.ColliderRadius : 0);
-            return ColliderRadius + targetRadius + 2.0f;
-        }
-    }
 
     protected override void UpdateIdle()
     {
@@ -186,7 +182,9 @@ public class Hero : Creature
                 return;
             }
 
-            ChaseOrAttackTarget(AttackDistance, HERO_SEARCH_DISTANCE);
+            SkillBase skill = Skills.GetReadySkill();
+            //ChaseOrAttackTarget(AttackDistance, HERO_SEARCH_DISTANCE);
+            ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, skill);
             return;
         }
         // 2. 주변 Env 채굴
@@ -209,7 +207,9 @@ public class Hero : Creature
                 return;
             }
 
-            ChaseOrAttackTarget(AttackDistance, HERO_SEARCH_DISTANCE);
+            //ChaseOrAttackTarget(AttackDistance, HERO_SEARCH_DISTANCE);
+            SkillBase skill = Skills.GetReadySkill();
+            ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, skill);
             return;
         }
 
@@ -309,16 +309,5 @@ public class Hero : Creature
     public override void OnAnimEventHandler(TrackEntry trackEntry, Spine.Event e)
     {
         base.OnAnimEventHandler(trackEntry, e);
-
-        // TODO
-        CreatureState = ECreatureState.Move;
-
-        // Skill
-        if (Target.IsValid() == false)
-        {
-            return;
-        }
-
-        Target.OnDamaged(this);
     }
 }

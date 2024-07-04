@@ -1,0 +1,6 @@
+﻿DataId,Name,ClassName,ComponentName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,CoolTime,DamageMultiplier,Duration,NumProjectiles,CastingSound,AngleBetweenProj,SkillRange,RotateSpeed,ScaleMultiplier,AngleRange
+10001,기본공격,NormalAttack,,근접평타,0,,BattleSkillIcon_01,attack,1.2,1,0,3,EnergyBolt_Start,0,0,0,1,0
+10002,위자드 직선평타,NormalAttack,StraightMotion,주변의 적을 향해 에너지 볼트를 발사한다,70001,ProjectilePrefab,BattleSkillIcon_01,attack,1.2,1,0,5,EnergyBolt_Start,0,0,0,1,0
+10003,화살든 고블린 평타,NormalAttack,ParabolaMotion,주변의 적을 향해 에너지 볼트를 발사한다,70002,ProjectilePrefab,BattleSkillIcon_01,attack_b,1.2,1.28,0,3,EnergyBolt_Start,0,0,0,1,0
+10004,보스 원형 공격,AreaAttack,,보스 원형 공격,0,SpellIndicator,,skill_a,5,1,0.9,0,,0,3,0,1,90
+10005,돌진,Dash,,돌진,0,SpellIndicator,,attack,7,1,2,0,,0,5,0,1,0

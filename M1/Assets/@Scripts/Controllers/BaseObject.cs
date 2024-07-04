@@ -1,5 +1,6 @@
 using Spine;
 using Spine.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,12 +46,25 @@ public class BaseObject : InitBase
         return true;
     }
 
+    public void LookAtTarget(BaseObject target)
+    {
+        Vector2 dir = target.transform.position - transform.position;
+        if (dir.x < 0)
+        {
+            isLookLeft = true;
+        }
+        else
+        {
+            isLookLeft = false;
+        }
+    }
+
     #region Battle
-    public virtual void OnDamaged(BaseObject attacker)
+    public virtual void OnDamaged(BaseObject attacker, SkillBase skill)
     {
 
     }    
-    public virtual void OnDead(BaseObject attacker)
+    public virtual void OnDead(BaseObject attacker, SkillBase skill)
     {
 
     }

@@ -10,6 +10,7 @@ using static UnityEngine.GraphicsBuffer;
 public class Creature : BaseObject
 {
     public BaseObject Target { get;protected set; }
+    public SkillComponent Skills { get; protected set; }
     public Data.CreatureData CreatureData { get; protected set; }
     public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
 
@@ -121,7 +122,7 @@ public class Creature : BaseObject
                 break;
 
             case ECreatureState.Skill:
-                PlayAnimation(0, AnimName.ATTACK_A, true);
+                //PlayAnimation(0, AnimName.ATTACK_A, true);
                 break;
 
             case ECreatureState.Move:
@@ -216,9 +217,9 @@ public class Creature : BaseObject
     #endregion
 
     #region Battle
-    public override void OnDamaged(BaseObject attacker)
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
     {
-        base.OnDamaged(attacker);
+        base.OnDamaged(attacker, skill);
 
         // 예외처리 코드 추가
         if (attacker.IsValid() == false)
@@ -239,13 +240,13 @@ public class Creature : BaseObject
 
         if (Hp <= 0)
         {
-            OnDead(attacker);
+            OnDead(attacker, skill);
             CreatureState = ECreatureState.Dead;
         }
     }
-    public override void OnDead(BaseObject attacker)
+    public override void OnDead(BaseObject attacker, SkillBase skill)
     {
-        base.OnDead(attacker);
+        base.OnDead(attacker, skill);
     }
 
     // 가까이에 있는 무언가를 찾아주는 Helper 코드
@@ -284,21 +285,30 @@ public class Creature : BaseObject
         return target;
     }
 
-    protected void ChaseOrAttackTarget(float attackRange, float chaseRange)
+    protected void ChaseOrAttackTarget(float chaseRange, SkillBase skill)
     {
         Vector3 dir = (Target.transform.position - transform.position);
         float distToTargetSqr = dir.sqrMagnitude;
-        float attackDistanceSqr = attackRange * attackRange;
 
-        // 공격 범위 이내로 들어왔다면 공격
+        float attackRange = HERO_DEFAULT_MELEE_ATTACK_RANGE;
+        if (skill.SkillData.ProjectileId != 0)
+        {
+            attackRange = HERO_DEFAULT_RANGED_ATTACK_RANGE;
+        }
+
+        float finalAttackRange = attackRange + Target.ColliderRadius + ColliderRadius;
+        float attackDistanceSqr = finalAttackRange * finalAttackRange;
+
+        // 공격 범위 내로 들어왔다면 공격
         if (distToTargetSqr <= attackDistanceSqr)
         {
             CreatureState = ECreatureState.Skill;
+            skill.DoSkill();
             return;
         }
+        // 공격 범위 밖이면 추적
         else
         {
-            // 공격 범위 밖이라면 추적
             SetRigidBodyVelocity(dir.normalized * MoveSpeed);
 
             // 너무 멀어지면 포기
@@ -308,8 +318,37 @@ public class Creature : BaseObject
                 Target = null;
                 CreatureState = ECreatureState.Move;
             }
+
+            return;
         }
     }
+
+    //protected void ChaseOrAttackTarget(float attackRange, float chaseRange)
+    //{
+    //    Vector3 dir = (Target.transform.position - transform.position);
+    //    float distToTargetSqr = dir.sqrMagnitude;
+    //    float attackDistanceSqr = attackRange * attackRange;
+
+    //    // 공격 범위 이내로 들어왔다면 공격
+    //    if (distToTargetSqr <= attackDistanceSqr)
+    //    {
+    //        CreatureState = ECreatureState.Skill;
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        // 공격 범위 밖이라면 추적
+    //        SetRigidBodyVelocity(dir.normalized * MoveSpeed);
+
+    //        // 너무 멀어지면 포기
+    //        float searchDistanceSqr = chaseRange * chaseRange;
+    //        if (distToTargetSqr > searchDistanceSqr)
+    //        {
+    //            Target = null;
+    //            CreatureState = ECreatureState.Move;
+    //        }
+    //    }
+    //}
     #endregion
 
     #region Misc
@@ -319,27 +358,4 @@ public class Creature : BaseObject
     }
     #endregion
 
-    #region Wait
-    protected Coroutine _coWait;
-    protected void StartWait(float seconds)
-    {
-        CancelWait();
-        _coWait = StartCoroutine(CoWait(seconds));
-    }
-
-   IEnumerator CoWait(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        _coWait = null;
-    }
-
-    protected void CancelWait()
-    {
-        if (_coWait != null)
-        {
-            StopCoroutine(_coWait);
-        }
-        _coWait = null;
-    }
-    #endregion
 }

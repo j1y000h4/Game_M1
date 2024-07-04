@@ -55,6 +55,10 @@ public class Monster : Creature
         // State
         // Init에 넣기에는 너무 이르다.
         CreatureState = ECreatureState.Idle;
+
+        // Skill
+        Skills = gameObject.GetOrAddComponent<SkillComponent>();
+        Skills.SetInfo(this, CreatureData.SkillIdList);
     }
 
     private void Start()
@@ -63,9 +67,6 @@ public class Monster : Creature
     }
 
     #region AI
-    // 일단은 하드코딩. 추후에는 Data로 빼주는게 맞다.
-    public float AttackDistance { get; private set; } = 4.0f;
-
     Vector3 _destPos;
     Vector3 _initPos;
 
@@ -119,7 +120,9 @@ public class Monster : Creature
         else
         {
             // Chase
-            ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, 5.0f);
+            //ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, 5.0f);
+            SkillBase skill = Skills.GetReadySkill();
+            ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, skill);
 
             // 너무 멀어지면 포기
             if (Target.IsValid() == false)
@@ -132,29 +135,30 @@ public class Monster : Creature
     }
     protected override void UpdateSkill()
     {
-        // _coWait가 null이 아니면 기다리고 있다는 뜻
-        if (_coWait != null)
+        if (Target.IsValid() == false)
         {
+            Target = null;
+            _destPos = _initPos;
+            CreatureState = ECreatureState.Move;
             return;
         }
-
-        CreatureState = ECreatureState.Move;
     }
     protected override void UpdateDead()
     {
         //Debug.Log(" > " + GetType().Name + " / UpdateDead");
+        SetRigidBodyVelocity(Vector2.zero);
     }
     #endregion
 
     #region Battle
-    public override void OnDamaged(BaseObject attacker)
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
     {
-        base.OnDamaged(attacker);
+        base.OnDamaged(attacker, skill);
     }
 
-    public override void OnDead(BaseObject attacker)
+    public override void OnDead(BaseObject attacker, SkillBase skill)
     {
-        base.OnDead(attacker);
+        base.OnDead(attacker, skill);
 
         // TODO : Drop Item
 
