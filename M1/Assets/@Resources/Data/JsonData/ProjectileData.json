@@ -1,0 +1,30 @@
+{
+  "projectiles": [
+    {
+      "DataId": 70001,
+      "Name": "위자드 총알",
+      "ComponentName": "StraightMotion",
+      "ProjectileSpriteName": "wizard_shot.sprite",
+      "PrefabLabel": "Projectile",
+      "Duration": 0.0,
+      "NumBounce": 0.0,
+      "NumPenerations": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0,
+      "ProjSpeed": 10.0
+    },
+    {
+      "DataId": 70002,
+      "Name": "고블린 화살",
+      "ComponentName": "ParabolaMotion",
+      "ProjectileSpriteName": "goblin_shot.sprite",
+      "PrefabLabel": "Projectile",
+      "Duration": 0.0,
+      "NumBounce": 0.0,
+      "NumPenerations": 0.0,
+      "HitSound": 0.0,
+      "ProjRange": 0.0,
+      "ProjSpeed": 5.0
+    }
+  ]
+}

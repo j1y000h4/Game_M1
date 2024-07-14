@@ -1,0 +1,3 @@
+﻿DataId,Name,ComponentName,ProjectileSpriteName,PrefabLabel,Duration,NumBounce,NumPenerations,HitSound,ProjRange,ProjSpeed
+70001,위자드 총알,StraightMotion,wizard_shot.sprite,Projectile,,,,,,10
+70002,고블린 화살,ParabolaMotion,goblin_shot.sprite,Projectile,,,,,,5

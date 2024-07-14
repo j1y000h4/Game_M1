@@ -137,6 +137,37 @@ namespace Data
     }
     #endregion
 
+    #region ProjectileData
+    [Serializable]
+    public class ProjectileData
+    {
+        public int DataId;
+        public string Name;
+        public string ComponentName;
+        public string ProjectileSpriteName;
+        public string PrefabLabel;
+        public float Duration;
+        public float NumBounce;
+        public float NumPenerations;
+        public float HitSound;
+        public float ProjRange;
+        public float ProjSpeed;
+    }
+
+    [Serializable]
+    public class ProjectileDataLoader : ILoader<int, ProjectileData>
+    {
+        public List<ProjectileData> projectiles = new List<ProjectileData>();
+
+        public Dictionary<int, ProjectileData> MakeDict()
+        {
+            Dictionary<int, ProjectileData> dict = new Dictionary<int, ProjectileData>();
+            foreach (ProjectileData projectile in projectiles)
+                dict.Add(projectile.DataId, projectile);
+            return dict;
+        }
+    }
+    #endregion
 
     #region Env
     [Serializable]
