@@ -67,6 +67,11 @@ public abstract class SkillBase : InitBase
 
     }
 
+    protected virtual void GenerateProjectile(Creature owner, Vector3 spawnPos)
+    {
+
+    }
+
     protected abstract void OnAnimEventHandler(TrackEntry trackEntry, Event e);
     protected abstract void OnAnimCompleteHandler(TrackEntry trackEntry);
 }
