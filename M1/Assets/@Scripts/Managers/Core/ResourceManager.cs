@@ -14,9 +14,17 @@ public class ResourceManager
     #region Load Resources
     public T Load<T>(string key) where T : Object
     {
-        if(_resources.TryGetValue(key,out Object resource))
+        if (_resources.TryGetValue(key, out Object resource))
         {
             return resource as T;
+        }
+
+        if (typeof(T) == typeof(Sprite) && key.Contains(".sprite") == false)
+        {
+            if (_resources.TryGetValue($"{key}.sprite", out resource))
+            {
+                return resource as T;
+            }
         }
 
         return null;

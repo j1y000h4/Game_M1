@@ -40,4 +40,33 @@ public class Projectile : BaseObject
             return;
         }
     }
+
+    public void SpawnInfo(Creature owner, SkillBase skill, LayerMask layer)
+    {
+        Owner = owner;
+        Skill = skill;
+
+        // Rule
+        Collider.excludeLayers = layer;
+
+        // TODO
+        StartCoroutine(CoReserveDestory(5.0f));
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        BaseObject target = other.GetComponent<BaseObject>();
+        if (target.IsValid() == false)
+        {
+            return;
+        }
+
+        // TODO
+    }
+
+    private IEnumerator CoReserveDestory(float lifeTime)
+    {
+        yield return new WaitForSeconds(lifeTime);
+        Managers.objectManager.Despawn(Owner);
+    }
 }

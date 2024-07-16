@@ -69,7 +69,27 @@ public abstract class SkillBase : InitBase
 
     protected virtual void GenerateProjectile(Creature owner, Vector3 spawnPos)
     {
+        Projectile projectile = Managers.objectManager.Spawn<Projectile>(spawnPos, SkillData.ProjectileId);
 
+        // 모두랑 충돌
+        LayerMask exclueMask = 0;
+        // 충돌하기 싫은걸 추가
+        exclueMask.AddLayer(Define.ELayer.Default);
+        exclueMask.AddLayer(Define.ELayer.Projectile);
+        exclueMask.AddLayer(Define.ELayer.Env);
+        exclueMask.AddLayer(Define.ELayer.Obstacle);
+
+        switch (owner.CreatureType)
+        {
+            case Define.ECreatureType.Hero:
+                exclueMask.AddLayer(Define.ELayer.Hero);
+                break;
+            case Define.ECreatureType.Monster:
+                exclueMask.AddLayer(Define.ELayer.Monster);
+                break;
+        }
+
+        projectile.SpawnInfo(Owner, this, exclueMask);
     }
 
     protected abstract void OnAnimEventHandler(TrackEntry trackEntry, Event e);

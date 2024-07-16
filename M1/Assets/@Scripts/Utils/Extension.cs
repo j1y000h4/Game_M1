@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public static class Extension
 {
@@ -36,6 +37,25 @@ public static class Extension
         }
 
         return true;
+    }
+
+    // 비트플래그란.. int [............] bool형이 32개를 사용하는 효과 / 인트는 32비트니까
+    public static void MakeMask(this ref LayerMask mask, List<Define.ELayer> list)
+    {
+        foreach (Define.ELayer layer in list)
+        {
+            mask |= (1 << (int)layer);
+        }
+    }
+
+    public static void AddLayer(this ref LayerMask mask, Define.ELayer layer)
+    {
+        mask |= (1 << (int)layer);
+    }
+
+    public static void RemoveLayer(this ref LayerMask mask, Define.ELayer layer)
+    {
+        mask &= ~(1 << (int)layer);
     }
 
     public static void DestroyChilds(this GameObject go)

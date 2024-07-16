@@ -36,43 +36,43 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 189e2249395e05a40af50684e2358c25
-    m_Address: 004
+    m_Address: 004.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ad9b13230f9c3894884e35fdd463d9f9
-    m_Address: 005
+    m_Address: 005.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e334a71aaaee904c8e07547dfb9f815
-    m_Address: goblin_shot
+    m_Address: goblin_shot.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 98746b0d00a325c4ca55d94a17e00adc
-    m_Address: wizard_shot
+    m_Address: wizard_shot.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f557cfa0156e6ed4d86f4e08e23c8298
-    m_Address: 003
+    m_Address: 003.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2866e1f69feba374e9ba7499aec76c6d
-    m_Address: 001
+    m_Address: 001.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7070e5b061f1d1847868d9eb0b4e7cb9
-    m_Address: 002
+    m_Address: 002.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
