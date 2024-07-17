@@ -1,18 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParabolaMotion : MonoBehaviour
+public class ParabolaMotion : ProjectileMotionBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public float HeightArc { get; private set; } = 2;
+
+    public new void SetInfo(int projectileTemplateID, Vector3 spawnPosition, Vector3 targetPosition, Action endCallback = null)
     {
-        
+        base.SetInfo(projectileTemplateID, spawnPosition, targetPosition, endCallback);
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override IEnumerator CoLaunchProjectile()
     {
-        
+        float journeyLength = Vector2.Distance(StartPosition, TargetPosition);
+        float totalTime = journeyLength / ProjectileData.ProjSpeed;
+        float elapsedTime = 0;
+
+        while (elapsedTime < totalTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            float normalizedTime = elapsedTime / totalTime;
+
+            // 포물선 모양으로 이동
+            float x = Mathf.Lerp(StartPosition.x, TargetPosition.x, normalizedTime);
+            float baseY = Mathf.Lerp(StartPosition.y, TargetPosition.y, normalizedTime);
+            float arc = HeightArc * Mathf.Sin(normalizedTime * Mathf.PI);
+
+            float y = baseY + arc;
+
+            var nextPos = new Vector3(x, y);
+
+            if (LookAtTarget)
+                LookAt2D(nextPos - transform.position);
+
+            transform.position = nextPos;
+
+            yield return null;
+        }
+
+        EndCallback?.Invoke();
     }
 }

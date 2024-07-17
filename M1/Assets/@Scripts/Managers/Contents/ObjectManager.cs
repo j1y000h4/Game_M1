@@ -118,12 +118,11 @@ public class ObjectManager
         }
         else if (obj.ObjectType == EObjectType.Projectile)
         {
-            // TODO
+            Projectile projectile = obj as Projectile;
+            Projectiles.Remove(projectile);
         }
         else if (obj.ObjectType == EObjectType.Env)
         {
-            // TODO
-
             Env env = obj as Env;
             Envs.Remove(env);
         }

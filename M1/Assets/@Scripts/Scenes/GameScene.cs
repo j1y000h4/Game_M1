@@ -39,9 +39,10 @@ public class GameScene : BaseScene
         Managers.uiManager.ShowBaseUI<UI_Joystick>();
 
         {
-            Managers.objectManager.Spawn<Monster>(new Vector3Int(0, 1, 0), MONSTER_BEAR_ID);
+            //Managers.objectManager.Spawn<Monster>(new Vector3Int(0, 1, 0), MONSTER_BEAR_ID);
             Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_SLIME_ID);
-            //Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_GOBLIN_ARCHER_ID);
+            Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_GOBLIN_ARCHER_ID);
+            Managers.objectManager.Spawn<Monster>(new Vector3(3, 1, 0), MONSTER_GOBLIN_ARCHER_ID);
         }
 
         {

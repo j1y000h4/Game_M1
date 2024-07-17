@@ -20,7 +20,7 @@ public class StraightMotion : ProjectileMotionBase
     // 어떤 모션은 SetInfo가 달라질 수도 있으니..
     public new void SetInfo(int projectileTemplateID, Vector3 spawnPosition, Vector3 targetPosition, Action endCallback = null)
     {
-        base.SetInfo(projectileTemplateID, spawnPosition, targetPosition, EndCallback);
+        base.SetInfo(projectileTemplateID, spawnPosition, targetPosition, endCallback);
     }
 
     protected override IEnumerator CoLaunchProjectile()

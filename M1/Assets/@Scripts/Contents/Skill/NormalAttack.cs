@@ -56,6 +56,7 @@ public class NormalAttack : SkillBase
         else
         {
             // Ranged
+            GenerateProjectile(Owner, Owner.CenterPosition);
         }
 
     }

@@ -12,7 +12,6 @@ public class Projectile : BaseObject
     public Data.ProjectileData ProjectileData { get; private set; }
     public ProjectileMotionBase ProjectileMotion { get; private set; }
 
-
     private SpriteRenderer _spriteRenderer;
 
     // 생성자처럼 사용
@@ -66,6 +65,12 @@ public class Projectile : BaseObject
         {
             // 다끝나면 ()=> 자폭!(Despawn)
             straightMotion.SetInfo(ProjectileData.DataId, owner.CenterPosition, owner.Target.CenterPosition, () => { Managers.objectManager.Despawn(this); });
+        }
+
+        ParabolaMotion parabolaMotion = ProjectileMotion as ParabolaMotion;
+        if (parabolaMotion != null)
+        {
+            parabolaMotion.SetInfo(ProjectileData.DataId, owner.CenterPosition, owner.Target.CenterPosition, () => { Managers.objectManager.Despawn(this); });
         }
 
 
