@@ -89,7 +89,7 @@ public abstract class SkillBase : InitBase
                 break;
         }
 
-        projectile.SpawnInfo(Owner, this, exclueMask);
+        projectile.SetSpawnInfo(Owner, this, exclueMask);
     }
 
     protected abstract void OnAnimEventHandler(TrackEntry trackEntry, Event e);

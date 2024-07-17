@@ -140,7 +140,7 @@ public class BaseObject : InitBase
     // 애니메이션에 대한 이벤트를 전달/받는 함수
     public virtual void OnAnimEventHandler(TrackEntry trackEntry, Spine.Event e)
     {
-        Debug.Log("OnAnimEventHandler");
+        //Debug.Log("OnAnimEventHandler");
     }
     #endregion
 }
