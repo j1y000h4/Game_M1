@@ -55,9 +55,11 @@ public class DataTransformer : EditorWindow
 
             LoaderData loaderData = new LoaderData();
 
+            // 부모부터 값을 파싱할 수 있도록
+            var fields = GetFieldsInBase(typeof(LoaderData));
+
             // Reflection - 수동으로 기입했던 내용을 Field를 긁어와서
-            System.Reflection.FieldInfo[] fields = typeof(LoaderData).GetFields();
-            for (int f = 0; f < fields.Length; f++)
+            for (int f = 0; f < fields.Count; f++)
             {
                 FieldInfo field = loaderData.GetType().GetField(fields[f].Name);
                 Type type = field.FieldType;
@@ -106,6 +108,35 @@ public class DataTransformer : EditorWindow
             genericList.Add(item);
 
         return genericList;
+    }
+
+    // 부모부터 추출 -> Child
+    public static List<FieldInfo> GetFieldsInBase(Type type, BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+    {
+        List<FieldInfo> fields = new List<FieldInfo>();
+        HashSet<string> fieldNames = new HashSet<string>(); // 중복방지
+        Stack<Type> stack = new Stack<Type>();
+
+        while (type != typeof(object))
+        {
+            stack.Push(type);
+            type = type.BaseType;
+        }
+
+        while (stack.Count > 0)
+        {
+            Type currentType = stack.Pop();
+
+            foreach (var field in currentType.GetFields(bindingFlags))
+            {
+                if (fieldNames.Add(field.Name))
+                {
+                    fields.Add(field);
+                }
+            }
+        }
+
+        return fields;
     }
     #endregion
 #endif
