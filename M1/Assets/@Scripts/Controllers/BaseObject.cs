@@ -143,4 +143,59 @@ public class BaseObject : InitBase
         //Debug.Log("OnAnimEventHandler");
     }
     #endregion
+
+    #region Map
+    public bool LerpCellPosCompleted { get; protected set; }
+
+    // 모든 오브젝트마다 벡터3 인트 타입으로 좌표를 관리하는 것
+    Vector3Int _cellPos;
+    public Vector3Int CellPos
+    {
+        get { return _cellPos; }
+        protected set
+        {
+            _cellPos = value;
+            LerpCellPosCompleted = false;
+        }
+    }
+
+    public void SetCellPos(Vector3Int cellPos, bool forceMove = false)
+    {
+        // CellPos과 position의 차이를 헷갈리지않게 잘 이해하기
+        CellPos = cellPos;
+        LerpCellPosCompleted = false;
+
+        if (forceMove)
+        {
+            transform.position = Managers.mapManager.Cell2World(CellPos);
+            LerpCellPosCompleted = true;
+        }
+    }
+
+    // 정확히 Cell 위치에 있지 않는 애를 자연스럽게 이동할 수 있도록
+    public void LerpToCellPos(float moveSpeed)
+    {
+        if (LerpCellPosCompleted)
+            return;
+
+        Vector3 destPos = Managers.mapManager.Cell2World(CellPos);
+        Vector3 dir = destPos - transform.position;
+
+        if (dir.x < 0)
+            isLookLeft = true;
+        else
+            isLookLeft = false;
+
+        if (dir.magnitude < 0.01f)
+        {
+            transform.position = destPos;
+            LerpCellPosCompleted = true;
+            return;
+        }
+
+        float moveDist = Mathf.Min(dir.magnitude, moveSpeed * Time.deltaTime);
+        transform.position += dir.normalized * moveDist;
+    }
+    #endregion
+
 }
