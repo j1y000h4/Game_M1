@@ -35,7 +35,8 @@ public class GameScene : BaseScene
                 continue;
 
             Hero hero = Managers.objectManager.Spawn<Hero>(new Vector3Int(1, 0, 0), heroTemplateID);
-            hero.SetCellPos(randCellPos, true);
+            //hero.SetCellPos(randCellPos, true);
+            Managers.mapManager.MoveTo(hero, randCellPos, true);
 
         }
 

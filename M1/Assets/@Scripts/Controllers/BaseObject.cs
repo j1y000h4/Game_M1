@@ -90,25 +90,26 @@ public class BaseObject : InitBase
 
     }
 
+    // Grid 방식으로 가는 이상 ColliderSize를 이용한 이동 로직은 필요없어지게 된다!!
     // RigidBody를 사용하는거라면 유니티 물리를 사용해 이동해주는게 좋다.
-    public void SetRigidBodyVelocity(Vector2 velocity)
-    {
-        if (RigidBody == null)
-        {
-            return;
-        }
+    //public void SetRigidBodyVelocity(Vector2 velocity)
+    //{
+    //    if (RigidBody == null)
+    //    {
+    //        return;
+    //    }
 
-        RigidBody.velocity = velocity;
+    //    RigidBody.velocity = velocity;
 
-        if (velocity.x < 0)
-        {
-            isLookLeft = true;
-        }
-        else if (velocity.x > 0)
-        {
-            isLookLeft = false;
-        }
-    }
+    //    if (velocity.x < 0)
+    //    {
+    //        isLookLeft = true;
+    //    }
+    //    else if (velocity.x > 0)
+    //    {
+    //        isLookLeft = false;
+    //    }
+    //}
     public void PlayAnimation(int trackIndex, string AnimName, bool loop)
     {
         if (SkeletonAnim == null)

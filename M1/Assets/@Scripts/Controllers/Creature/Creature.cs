@@ -138,21 +138,22 @@ public class Creature : BaseObject
         }
     }
 
-    public void ChangeColliderSize(EColliderSize size = EColliderSize.Normal)
-    {
-        switch(size)
-        {
-            case EColliderSize.Small:
-                Collider.radius = CreatureData.ColliderRadius * 0.8f;
-                break;
-            case EColliderSize.Normal:
-                Collider.radius = CreatureData.ColliderRadius;
-                break;
-            case EColliderSize.Big:
-                Collider.radius = CreatureData.ColliderRadius * 1.2f;
-                break;
-        }
-    }
+    // Grid 방식으로 가는 이상 ColliderSize를 이용한 이동 로직은 필요없어지게 된다!!
+    //public void ChangeColliderSize(EColliderSize size = EColliderSize.Normal)
+    //{
+    //    switch(size)
+    //    {
+    //        case EColliderSize.Small:
+    //            Collider.radius = CreatureData.ColliderRadius * 0.8f;
+    //            break;
+    //        case EColliderSize.Normal:
+    //            Collider.radius = CreatureData.ColliderRadius;
+    //            break;
+    //        case EColliderSize.Big:
+    //            Collider.radius = CreatureData.ColliderRadius * 1.2f;
+    //            break;
+    //    }
+    //}
 
     #region AI
 
@@ -322,33 +323,6 @@ public class Creature : BaseObject
             return;
         }
     }
-
-    //protected void ChaseOrAttackTarget(float attackRange, float chaseRange)
-    //{
-    //    Vector3 dir = (Target.transform.position - transform.position);
-    //    float distToTargetSqr = dir.sqrMagnitude;
-    //    float attackDistanceSqr = attackRange * attackRange;
-
-    //    // 공격 범위 이내로 들어왔다면 공격
-    //    if (distToTargetSqr <= attackDistanceSqr)
-    //    {
-    //        CreatureState = ECreatureState.Skill;
-    //        return;
-    //    }
-    //    else
-    //    {
-    //        // 공격 범위 밖이라면 추적
-    //        SetRigidBodyVelocity(dir.normalized * MoveSpeed);
-
-    //        // 너무 멀어지면 포기
-    //        float searchDistanceSqr = chaseRange * chaseRange;
-    //        if (distToTargetSqr > searchDistanceSqr)
-    //        {
-    //            Target = null;
-    //            CreatureState = ECreatureState.Move;
-    //        }
-    //    }
-    //}
     #endregion
 
     #region Misc
@@ -358,4 +332,70 @@ public class Creature : BaseObject
     }
     #endregion
 
+    #region Map
+    // WorldPos 기반
+    public EFindPathResult FindPathAndMoveToCellPos(Vector3 destWorldPos, int maxDepth, bool forceMoveCloser = false)
+    {
+        Vector3Int destCellPos = Managers.mapManager.World2Cell(destWorldPos);
+        return FindPathAndMoveToCellPos(destCellPos, maxDepth, forceMoveCloser);
+    }
+
+    // CellPos 기반
+    public EFindPathResult FindPathAndMoveToCellPos(Vector3Int destCellPos, int maxDepth, bool forceMoveCloser = false)
+    {
+        if (LerpCellPosCompleted == false)
+            return EFindPathResult.Fail_LerpCell;
+
+        // A*
+        //List<Vector3Int> path = Managers.mapManager.FindPath(CellPos, destCellPos, maxDepth);
+        //if (path.Count < 2)
+        //    return EFindPathResult.Fail_NoPath;
+
+        //if (forceMoveCloser)
+        //{
+        //    Vector3Int diff1 = CellPos - destCellPos;
+        //    Vector3Int diff2 = path[1] - destCellPos;
+        //    if (diff1.sqrMagnitude <= diff2.sqrMagnitude)
+        //        return EFindPathResult.Fail_NoPath;
+        //}
+
+        //Vector3Int dirCellPos = path[1] - CellPos;
+        Vector3Int dirCellPos = destCellPos - CellPos;
+        Vector3Int nextPos = CellPos + dirCellPos;
+
+        if (Managers.mapManager.MoveTo(this, nextPos) == false)
+            return EFindPathResult.Fail_MoveTo;
+
+        return EFindPathResult.Success;
+    }
+
+    public bool MoveToCellPos(Vector3Int destCellPos, int maxDepth, bool forceMoveCloser = false)
+    {
+        if (LerpCellPosCompleted == false)
+            return false;
+
+        return Managers.mapManager.MoveTo(this, destCellPos);
+    }
+
+    protected IEnumerator CoLerpToCellPos()
+    {
+        while (true)
+        {
+            Hero hero = this as Hero;
+            if (hero != null)
+            {
+                float div = 5;
+                Vector3 campPos = Managers.objectManager.Camp.Destination.transform.position;
+                Vector3Int campCellPos = Managers.mapManager.World2Cell(campPos);
+                float ratio = Math.Max(1, (CellPos - campCellPos).magnitude / div);
+
+                LerpToCellPos(CreatureData.MoveSpeed * ratio);
+            }
+            else
+                LerpToCellPos(CreatureData.MoveSpeed);
+
+            yield return null;
+        }
+    }
+    #endregion
 }

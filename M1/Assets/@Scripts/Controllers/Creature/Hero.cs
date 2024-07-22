@@ -6,26 +6,7 @@ using static Define;
 
 public class Hero : Creature
 {
-    bool _needArrange = true;
-    public bool NeedArrange
-    {
-        get { return _needArrange; }
-        set
-        {
-            _needArrange = value;
-
-            // _needArrage == true일 경우에는 Hero들이 산개하고 활동하고 있을 때
-            if (value)
-            {
-                ChangeColliderSize(EColliderSize.Big);
-            }
-            // _needArrage == false일 경우에는 Hero들이 가만히 있을 때
-            else
-            {
-                TryResizeCollider();
-            }
-        }
-    }
+    public bool NeedArrange { get; set; }
 
     // 좀 더 잘 뭉치기 위한 
     public override ECreatureState CreatureState
@@ -37,18 +18,19 @@ public class Hero : Creature
             {
                 base.CreatureState = value;
 
-                switch (value)
-                {
-                    case ECreatureState.Move:
-                        RigidBody.mass = CreatureData.Mass * 5.0f;
-                        break;
-                    case ECreatureState.Skill:
-                        RigidBody.mass = CreatureData.Mass * 500.0f;
-                        break;
-                    default:
-                        RigidBody.mass = CreatureData.Mass;
-                        break;
-                }
+                // Grid 방식으로 가는 이상 ColliderSize를 이용한 이동 로직은 필요없어지게 된다!!
+                //switch (value)
+                //{
+                //    case ECreatureState.Move:
+                //        RigidBody.mass = CreatureData.Mass * 5.0f;
+                //        break;
+                //    case ECreatureState.Skill:
+                //        RigidBody.mass = CreatureData.Mass * 500.0f;
+                //        break;
+                //    default:
+                //        RigidBody.mass = CreatureData.Mass;
+                //        break;
+                //}
             }
         }
     }
@@ -87,6 +69,10 @@ public class Hero : Creature
         Managers.gameManager.OnJoystickStateChanged -= HandleOnJoystickStateChanged;
         Managers.gameManager.OnJoystickStateChanged += HandleOnJoystickStateChanged;
 
+        // Map
+        Collider.isTrigger = true;
+        RigidBody.simulated = false;
+
         StartCoroutine(CoUpdateAI());
 
         return true;
@@ -123,7 +109,8 @@ public class Hero : Creature
     protected override void UpdateIdle()
     {
         // Update할때마다 속도를 0으로
-        SetRigidBodyVelocity(Vector2.zero);
+        // Grid 방식으로 가는 이상 ColliderSize를 이용한 이동 로직은 필요없어지게 된다!!
+        //SetRigidBodyVelocity(Vector2.zero);
 
         // 우선순위 설정하기
         // 0. 이동 상태라면 강제 변경
@@ -263,29 +250,30 @@ public class Hero : Creature
 
     #endregion
 
-    private void TryResizeCollider()
-    {
-        // 일단 충돌체를 아주 작게
-        ChangeColliderSize(EColliderSize.Small);
+    // Grid 방식으로 가는 이상 ColliderSize를 이용한 이동 로직은 필요없어지게 된다!!
+    //private void TryResizeCollider()
+    //{
+    //    // 일단 충돌체를 아주 작게
+    //    ChangeColliderSize(EColliderSize.Small);
 
-        foreach (var hero in Managers.objectManager.Heroes)
-        {
-            if (hero.HeroMoveState == EHeroMoveState.ReturnToCamp)
-            {
-                return;
-            }
-        }
+    //    foreach (var hero in Managers.objectManager.Heroes)
+    //    {
+    //        if (hero.HeroMoveState == EHeroMoveState.ReturnToCamp)
+    //        {
+    //            return;
+    //        }
+    //    }
 
-        // ReturnToCamp가 한 명도 없으면 콜라이더 조정
-        foreach (var hero in Managers.objectManager.Heroes)
-        {
-            // 단 채집이나 전투중이면 스킵.
-            if (hero.CreatureState == ECreatureState.Idle)
-            {
-                hero.ChangeColliderSize(EColliderSize.Big);
-            }
-        }
-    }
+    //    // ReturnToCamp가 한 명도 없으면 콜라이더 조정
+    //    foreach (var hero in Managers.objectManager.Heroes)
+    //    {
+    //        // 단 채집이나 전투중이면 스킵.
+    //        if (hero.CreatureState == ECreatureState.Idle)
+    //        {
+    //            hero.ChangeColliderSize(EColliderSize.Big);
+    //        }
+    //    }
+    //}
 
     private void HandleOnJoystickStateChanged(EJoystickState joystickState)
     {
