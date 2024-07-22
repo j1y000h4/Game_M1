@@ -35,7 +35,23 @@ public class HeroCamp : BaseObject
     }
     private void Update()
     {
-        transform.Translate(_moveDir * Time.deltaTime * Speed);
+        //transform.Translate(_moveDir * Time.deltaTime * Speed);
+
+        Vector3 dir = _moveDir * Time.deltaTime * Speed;
+        Vector3 newPos = transform.position + dir;
+
+        if (Managers.mapManager == null)
+        {
+            return;
+        }
+
+        // Camp는 그 위치로 갈 수 있느냐 없느냐 정도만 체크
+        if (Managers.mapManager.CanGo(newPos, ignoreObjects: true, ignoreSemiWall: true) == false)
+        {
+            return;
+        }
+
+        transform.position = newPos;
     }
 
     private void HandleOnMoveDirChanged(Vector2 dir)

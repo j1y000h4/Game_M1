@@ -21,12 +21,12 @@ public class GameScene : BaseScene
         camp.SetCellPos(new Vector3Int(0, 0, 0), true);
 
         // Hero Spawn
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
-            //int heroTemplateID = HERO_WIZARD_ID + Random.Range(0, 5);
+            int heroTemplateID = HERO_WIZARD_ID + Random.Range(0, 5);
 
             //int heroTemplateID = HERO_KNIGHT_ID;
-            int heroTemplateID = HERO_WIZARD_ID;
+            //int heroTemplateID = HERO_WIZARD_ID;
 
             Vector3Int randCellPos = new Vector3Int(0 + Random.Range(-3, 3), 0 + Random.Range(-3, 3), 0);
 
@@ -46,10 +46,9 @@ public class GameScene : BaseScene
         Managers.uiManager.ShowBaseUI<UI_Joystick>();
 
         {
-            //Managers.objectManager.Spawn<Monster>(new Vector3Int(0, 1, 0), MONSTER_BEAR_ID);
-            //Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_SLIME_ID);
+            Monster monster = Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_SLIME_ID);
+            Managers.mapManager.MoveTo(monster, new Vector3Int(0, 4, 0), true);
             //Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_GOBLIN_ARCHER_ID);
-            //Managers.objectManager.Spawn<Monster>(new Vector3(3, 1, 0), MONSTER_GOBLIN_ARCHER_ID);
         }
 
         {

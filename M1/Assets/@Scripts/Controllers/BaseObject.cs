@@ -194,6 +194,7 @@ public class BaseObject : InitBase
             return;
         }
 
+        // 실질적인 이동
         float moveDist = Mathf.Min(dir.magnitude, moveSpeed * Time.deltaTime);
         transform.position += dir.normalized * moveDist;
     }

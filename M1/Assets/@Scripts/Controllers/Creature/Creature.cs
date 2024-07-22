@@ -111,6 +111,9 @@ public class Creature : BaseObject
 
         // State
         CreatureState = ECreatureState.Idle;
+
+        // Map
+        StartCoroutine(CoLerpToCellPos());
     }
 
     protected override void UpdateAnimation()
@@ -310,7 +313,8 @@ public class Creature : BaseObject
         // 공격 범위 밖이면 추적
         else
         {
-            SetRigidBodyVelocity(dir.normalized * MoveSpeed);
+            //SetRigidBodyVelocity(dir.normalized * MoveSpeed);
+            FindPathAndMoveToCellPos(Target.transform.position, HERO_DEFAULT_MOVE_DEPTH);
 
             // 너무 멀어지면 포기
             float searchDistanceSqr = chaseRange * chaseRange;
@@ -347,20 +351,20 @@ public class Creature : BaseObject
             return EFindPathResult.Fail_LerpCell;
 
         // A*
-        //List<Vector3Int> path = Managers.mapManager.FindPath(CellPos, destCellPos, maxDepth);
-        //if (path.Count < 2)
-        //    return EFindPathResult.Fail_NoPath;
+        List<Vector3Int> path = Managers.mapManager.FindPath(CellPos, destCellPos, maxDepth);
+        if (path.Count < 2)
+            return EFindPathResult.Fail_NoPath;
 
-        //if (forceMoveCloser)
-        //{
-        //    Vector3Int diff1 = CellPos - destCellPos;
-        //    Vector3Int diff2 = path[1] - destCellPos;
-        //    if (diff1.sqrMagnitude <= diff2.sqrMagnitude)
-        //        return EFindPathResult.Fail_NoPath;
-        //}
+        if (forceMoveCloser)
+        {
+            Vector3Int diff1 = CellPos - destCellPos;
+            Vector3Int diff2 = path[1] - destCellPos;
+            if (diff1.sqrMagnitude <= diff2.sqrMagnitude)
+                return EFindPathResult.Fail_NoPath;
+        }
 
-        //Vector3Int dirCellPos = path[1] - CellPos;
-        Vector3Int dirCellPos = destCellPos - CellPos;
+        Vector3Int dirCellPos = path[1] - CellPos;
+        //Vector3Int dirCellPos = destCellPos - CellPos;
         Vector3Int nextPos = CellPos + dirCellPos;
 
         if (Managers.mapManager.MoveTo(this, nextPos) == false)
@@ -371,17 +375,21 @@ public class Creature : BaseObject
 
     public bool MoveToCellPos(Vector3Int destCellPos, int maxDepth, bool forceMoveCloser = false)
     {
+        // LerpCellPosCompleted면 시도 x
         if (LerpCellPosCompleted == false)
             return false;
 
         return Managers.mapManager.MoveTo(this, destCellPos);
     }
 
+    // 매 프레임마다 내 셀 위치랑 어긋나 있으면 해당 위치로 이동하려고 시도를 하는 코드
     protected IEnumerator CoLerpToCellPos()
     {
         while (true)
         {
             Hero hero = this as Hero;
+
+            // hero의 경우 멀면 멀수록 더 빨리 쫓아올 수 있도록
             if (hero != null)
             {
                 float div = 5;
