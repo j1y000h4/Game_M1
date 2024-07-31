@@ -41,7 +41,6 @@ public class MapManager
         ParseCollisionData(map, mapName);
 
         SpawnObjectsByData(map, mapName);
-
     }
 
     public void DestroyMap()
@@ -100,6 +99,7 @@ public class MapManager
         if (tm != null)
             tm.gameObject.SetActive(false);
 
+        // 한칸한칸 체크
         for (int y = tm.cellBounds.yMax; y >= tm.cellBounds.yMin; y--)
         {
             for (int x = tm.cellBounds.xMin; x <= tm.cellBounds.xMax; x++)
@@ -113,7 +113,7 @@ public class MapManager
                 {
                     Vector3 worldPos = Cell2World(cellPos);
                     Env env = Managers.objectManager.Spawn<Env>(worldPos, tile.DataTemplateID);
-                    //env.SetCellPos(cellPos, true);
+                    env.SetCellPos(cellPos, true);
                 }
                 else
                 {
@@ -121,7 +121,7 @@ public class MapManager
                     {
                         Vector3 worldPos = Cell2World(cellPos);
                         Monster monster = Managers.objectManager.Spawn<Monster>(worldPos, tile.DataTemplateID);
-                        //monster.SetCellPos(cellPos, true);
+                        monster.SetCellPos(cellPos, true);
                     }
                     else if (tile.CreatureType == Define.ECreatureType.Npc)
                     {

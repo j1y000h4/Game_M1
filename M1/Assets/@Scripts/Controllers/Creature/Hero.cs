@@ -268,6 +268,8 @@ public class Hero : Creature
             return false;
 
         List<Vector3Int> path = Managers.mapManager.FindPath(CellPos, destCellPos, 100);
+
+        // 못 찾으면 실패
         if (path.Count < 2)
             return false;
 
