@@ -240,6 +240,7 @@ public class MapManager
     }
     #endregion
 
+    // 중요
     #region A* PathFinding
     public struct PQNode : IComparable<PQNode>
     {
@@ -274,12 +275,13 @@ public class MapManager
     // maxDepth에 따라 효율이 달라진다.
     public List<Vector3Int> FindPath(Vector3Int startCellPos, Vector3Int destCellPos, int maxDepth = 10)
     {
+        // 리스트가 아닌 
         // 지금까지 제일 좋은 후보 기록.
         Dictionary<Vector3Int, int> best = new Dictionary<Vector3Int, int>();
         // 경로 추적 용도.
         Dictionary<Vector3Int, Vector3Int> parent = new Dictionary<Vector3Int, Vector3Int>();
 
-        // 현재 발견된 후보 중에서 가장 좋은 후보를 빠르게 뽑아오기 위한 도구.
+        // 현재 발견된 후보 중에서 가장 좋은 후보를 빠르게 뽑아오기 위한 도구. 우선순위 큐 이용
         PriorityQueue<PQNode> pq = new PriorityQueue<PQNode>(); // OpenList
 
         Vector3Int pos = startCellPos;

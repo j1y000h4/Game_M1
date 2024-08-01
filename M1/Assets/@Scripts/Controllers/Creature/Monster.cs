@@ -57,8 +57,9 @@ public class Monster : Creature
         CreatureState = ECreatureState.Idle;
 
         // Skill
-        Skills = gameObject.GetOrAddComponent<SkillComponent>();
-        Skills.SetInfo(this, CreatureData.SkillIdList);
+        // 크리처 쪽으로 들어갈 예정
+        //Skills = gameObject.GetOrAddComponent<SkillComponent>();
+        //Skills.SetInfo(this, CreatureData.SkillIdList);
     }
 
     private void Start()
@@ -125,8 +126,7 @@ public class Monster : Creature
         else
         {
             // Chase
-            SkillBase skill = Skills.GetReadySkill();
-            ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, skill);
+            ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, AttackDistance);
 
             // 너무 멀어지면 포기
             if (Target.IsValid() == false)
@@ -139,6 +139,8 @@ public class Monster : Creature
     }
     protected override void UpdateSkill()
     {
+        base.UpdateSkill();
+
         if (Target.IsValid() == false)
         {
             Target = null;

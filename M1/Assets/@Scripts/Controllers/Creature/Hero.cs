@@ -84,10 +84,6 @@ public class Hero : Creature
 
         // State
         CreatureState = ECreatureState.Idle;
-
-        // Skill
-        Skills = gameObject.GetOrAddComponent<SkillComponent>();
-        Skills.SetInfo(this, CreatureData.SkillIdList);
     }
 
     public Transform HeroCampDest
@@ -181,9 +177,7 @@ public class Hero : Creature
                 return;
             }
 
-            SkillBase skill = Skills.GetReadySkill();
-            //ChaseOrAttackTarget(AttackDistance, HERO_SEARCH_DISTANCE);
-            ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, skill);
+            ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, AttackDistance);
             return;
         }
         // 2. 주변 Env 채굴
@@ -206,9 +200,7 @@ public class Hero : Creature
                 return;
             }
 
-            //ChaseOrAttackTarget(AttackDistance, HERO_SEARCH_DISTANCE);
-            SkillBase skill = Skills.GetReadySkill();
-            ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, skill);
+            ChaseOrAttackTarget(HERO_SEARCH_DISTANCE, AttackDistance);
             return;
         }
 
@@ -313,6 +305,8 @@ public class Hero : Creature
 
     protected override void UpdateSkill()
     {
+        base.UpdateSkill();
+
         // 공격을 하다가 끌고 오면 바로 끌고 갈 수 있도록
         if (HeroMoveState == EHeroMoveState.ForceMove)
         {

@@ -110,14 +110,25 @@ public class BaseObject : InitBase
     //        isLookLeft = false;
     //    }
     //}
-    public void PlayAnimation(int trackIndex, string AnimName, bool loop)
+    public TrackEntry PlayAnimation(int trackIndex, string animName, bool loop)
     {
         if (SkeletonAnim == null)
         {
-            return;
+            return null;
         }
 
-        SkeletonAnim.AnimationState.SetAnimation(trackIndex, AnimName, loop);
+        TrackEntry entry = SkeletonAnim.AnimationState.SetAnimation(trackIndex, animName, loop);
+
+        if (animName == AnimName.DEAD)
+        {
+            entry.MixDuration = 0;
+        }
+        else
+        {
+            entry.MixDuration = 0.2f;
+        }
+
+        return entry;
     }
 
     public void AddAnimation(int trackIndex, string AnimName, bool loop, float delay)

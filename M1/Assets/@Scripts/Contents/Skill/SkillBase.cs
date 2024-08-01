@@ -7,6 +7,7 @@ using Event = Spine.Event;
 public abstract class SkillBase : InitBase
 {
     public Creature Owner { get; protected set; }
+    public float RemainCoolTime {  get; protected set; }
     public Data.SkillData SkillData { get; private set; }
 
     public override bool Init()
@@ -29,12 +30,8 @@ public abstract class SkillBase : InitBase
         if (Owner.SkeletonAnim != null && Owner.SkeletonAnim.AnimationState != null)
         {
             // 스킬 애니메이션 시작할때의 이벤트 핸들러
-            Owner.SkeletonAnim.AnimationState.Event -= OnAnimEventHandler;
-            Owner.SkeletonAnim.AnimationState.Event += OnAnimEventHandler;
-
-            // 스킬 애니메이션 시작할때의 이벤트 핸들러
-            Owner.SkeletonAnim.AnimationState.Complete -= OnAnimCompleteHandler;
-            Owner.SkeletonAnim.AnimationState.Complete += OnAnimCompleteHandler;
+            Owner.SkeletonAnim.AnimationState.Event -= OnOwnerAnimEventHandler;
+            Owner.SkeletonAnim.AnimationState.Event += OnOwnerAnimEventHandler;
         }
     }
 
@@ -58,13 +55,45 @@ public abstract class SkillBase : InitBase
             return;
         }
 
-        Owner.SkeletonAnim.AnimationState.Event -= OnAnimEventHandler;
-        Owner.SkeletonAnim.AnimationState.Complete -= OnAnimCompleteHandler;
+        Owner.SkeletonAnim.AnimationState.Event -= OnOwnerAnimEventHandler;
     }
 
     public virtual void DoSkill()
     {
+        RemainCoolTime = SkillData.CoolTime;
 
+        // 준비된 스킬 리스트에서 해제 시켜준다.
+        if (Owner.Skills != null)
+        {
+            Owner.Skills.ActiveSkills.Remove(this);
+        }
+
+        float timeScale = 1.0f;
+
+        if (Owner.Skills.DefaultSkill == this)
+        {
+            Owner.PlayAnimation(0, SkillData.AnimName, false).TimeScale = timeScale;
+        }
+        else
+        {
+            Owner.PlayAnimation(0, SkillData.AnimName, false).TimeScale = 1;
+        }
+
+        StartCoroutine(CoCountdownCooldown());
+    }
+
+    private IEnumerator CoCountdownCooldown()
+    {
+        RemainCoolTime = SkillData.CoolTime;
+        yield return new WaitForSeconds(SkillData.CoolTime);
+        RemainCoolTime = 0;
+
+        // 쿨타임이 다 지나면
+        // 준비된 스킬에 추가
+        if (Owner.Skills != null)
+        {
+            Owner.Skills.ActiveSkills.Add(this);
+        }
     }
 
     protected virtual void GenerateProjectile(Creature owner, Vector3 spawnPos)
@@ -92,6 +121,14 @@ public abstract class SkillBase : InitBase
         projectile.SetSpawnInfo(Owner, this, exclueMask);
     }
 
-    protected abstract void OnAnimEventHandler(TrackEntry trackEntry, Event e);
-    protected abstract void OnAnimCompleteHandler(TrackEntry trackEntry);
+    private void OnOwnerAnimEventHandler(TrackEntry trackEntry, Event e)
+    {
+        // 다른 스킬의 애니메이션 이벤트도 받기 때문에 자기꺼만 써야함
+        if (trackEntry.Animation.Name == SkillData.AnimName)
+        {
+            OnAttackEvent();
+        }
+    }
+
+    protected abstract void OnAttackEvent();
 }

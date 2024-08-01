@@ -1,7 +1,7 @@
-﻿DataId,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,Mass,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,Def,MovSpeed,TotalExp,HpRate,AtkRate,DefRate,MoveSpeedRate,IconImage,SkeletonDataID,AnimatorName,SkillList,DropItemId,StandardAttack
-202001,슬라임,Monster,0,0,0.27,15,300,5,2,1.8,2,0,4,200,1,1,1,1,003.sprite,slime_SkeletonData,,10001,400000,
-202002,일반거미,Monster,0,0.2,0.5,15,400,5,2,1.8,2,1,4,200,1,1,1,1,003.sprite,spider_common_SkeletonData,,10001,400000,
-202003,희귀거미,Monster,0,0.51,0.5,15,700,5,2,2.3,2,2,4,200,1,1,1,1,003.sprite,spider_rare_SkeletonData,,10001,400000,
-202004,나무맨,Monster,0,0.19,0.5,15,500,4,2,1.8,2,5,4,200,1,1,1,1,003.sprite,wood_common_SkeletonData,,10001,400000,
-202005,활 든 고블린,Monster,0,0.5,0.5,15,400,4,2,4,2,4,4,200,1,1,1,1,003.sprite,goblin_SkeletonData,,10003,400000,
-202006,곰,Monster,-0.36,1.28,1.4,2000,10000,4,2,1.8,2,5,6,200,1,1,1,1,003.sprite,bear_SkeletonData,,10001,400000,
+﻿DataId,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,MovSpeed,CriRate,Cridamage,IconImage,SkeletonDataID,DefaultSkill,EnvSkill,SkillA,SkillB,DropItemId
+202001,슬라임,MonsterPrefab,0,0,0.27,300,5,2,1.8,2,4,0,1.5,003.sprite,slime_SkeletonData,10001,0,0,0,400000
+202002,일반거미,MonsterPrefab,0,0.2,0.5,400,5,2,1.8,2,4,0,1.5,003.sprite,spider_common_SkeletonData,10001,0,0,0,400000
+202003,희귀거미,MonsterPrefab,0,0.51,0.5,700,5,2,2.3,2,4,0,1.5,003.sprite,spider_rare_SkeletonData,10001,0,0,0,400000
+202004,나무맨,MonsterPrefab,0,0.19,0.5,500,4,2,1.8,2,4,0,1.5,003.sprite,wood_common_SkeletonData,10001,0,0,0,400000
+202005,활 든 고블린,MonsterPrefab,0,0.5,0.5,400,4,2,4,2,4,0,1.5,003.sprite,goblin_SkeletonData,10003,0,0,0,400000
+202006,곰,MonsterPrefab,0,0.28,0.28,10000,4,2,1.8,2,6,0,1.5,003.sprite,bear_SkeletonData,10004,0,0,0,400000

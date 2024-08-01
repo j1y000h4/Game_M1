@@ -32,6 +32,21 @@ public class Creature : BaseObject
     public float MoveSpeed { get; set; }
     #endregion
 
+    protected float AttackDistance
+    {
+        get
+        {
+            float env = 2.2f;
+            if (Target != null && Target.ObjectType == EObjectType.Env)
+            {
+                return Mathf.Max(env, Collider.radius + Target.Collider.radius + 0.1f);
+            }
+
+            float baseValue = CreatureData.AtkRange;
+            return baseValue;
+        }
+    }
+
     // state에 따라 애니메이션을 설정하는 게 편하다.
     protected ECreatureState _creatureState = ECreatureState.None;
     public virtual ECreatureState CreatureState
@@ -77,11 +92,11 @@ public class Creature : BaseObject
         gameObject.name = $"{CreatureData.DataId}_{CreatureData.DescriptionTextID}";
 
         // Collider
-        Collider.offset = new Vector2(CreatureData.ColliderOffsetX, CreatureData.ColliderOffstY);
+        Collider.offset = new Vector2(CreatureData.ColliderOffsetX, CreatureData.ColliderOffsetY);
         Collider.radius = CreatureData.ColliderRadius;
 
         // RigidBody
-        RigidBody.mass = CreatureData.Mass;
+        RigidBody.mass = 0;
 
         // Spine
         SkeletonAnim.skeletonDataAsset = Managers.resourceManager.Load<SkeletonDataAsset>(CreatureData.SkeletonDataID);
@@ -100,7 +115,8 @@ public class Creature : BaseObject
         sg.sortingOrder = SortingLayers.CREATURE;
 
         // Skills
-        // CreatureData.SkillIdList;
+        Skills = gameObject.GetOrAddComponent<SkillComponent>();
+        Skills.SetInfo(this, CreatureData);
 
         // Stat
         MaxHp = CreatureData.MaxHp;
@@ -216,8 +232,68 @@ public class Creature : BaseObject
 
     protected virtual void UpdateIdle() { }
     protected virtual void UpdateMove() { }
-    protected virtual void UpdateSkill() { }
+    protected virtual void UpdateSkill()
+    {
+        if (_coWait != null)
+        {
+            return;
+        }
+
+        // 공통적인 부분 (Hero/Monster)
+        if (Target.IsValid() == false || Target.ObjectType == EObjectType.HeroCamp)
+        {
+            CreatureState = ECreatureState.Idle;
+            return;
+        }
+
+        Vector3 dir = (Target.CenterPosition - CenterPosition);
+        float distToTargetSqr = dir.sqrMagnitude;
+        float attackDistanceSqr = AttackDistance * AttackDistance;
+
+        if (distToTargetSqr > attackDistanceSqr)
+        {
+            CreatureState = ECreatureState.Idle;
+            return;
+        }
+
+        // 스킬을 사용할 수 있는 상태
+        // DoSkill
+        Skills.CurrentSkill.DoSkill();
+
+        LookAtTarget(Target);
+
+        var trackEntry = SkeletonAnim.state.GetCurrent(0);
+        float delay = trackEntry.Animation.Duration;
+
+        StartWait(delay);
+
+    }
     protected virtual void UpdateDead() { }
+    #endregion
+
+    #region Wait
+    protected Coroutine _coWait;
+    protected void StartWait(float seconds)
+    {
+        _coWait = StartCoroutine(CoWait(seconds));
+    }
+
+    IEnumerator CoWait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        _coWait = null;
+    }
+
+    protected void CancelWait()
+    {
+        if (_coWait != null)
+        {
+            StopCoroutine(_coWait);
+        }
+
+        _coWait = null;
+    }
+
     #endregion
 
     #region Battle
@@ -234,6 +310,13 @@ public class Creature : BaseObject
         // Creature로 캐스팅
         Creature creature = attacker as Creature;
         if (creature == null)
+        {
+            return;
+        }
+
+        // TEMP
+        // Hero 무적 로직
+        if (CreatureType == ECreatureType.Hero)
         {
             return;
         }
@@ -289,25 +372,20 @@ public class Creature : BaseObject
         return target;
     }
 
-    protected void ChaseOrAttackTarget(float chaseRange, SkillBase skill)
+    protected void ChaseOrAttackTarget(float chaseRange, float attackRange)
     {
         Vector3 dir = (Target.transform.position - transform.position);
         float distToTargetSqr = dir.sqrMagnitude;
+        float attackDistanceSqr = attackRange * attackRange;
 
-        float attackRange = HERO_DEFAULT_MELEE_ATTACK_RANGE;
-        if (skill.SkillData.ProjectileId != 0)
-        {
-            attackRange = HERO_DEFAULT_RANGED_ATTACK_RANGE;
-        }
 
-        float finalAttackRange = attackRange + Target.ColliderRadius + ColliderRadius;
-        float attackDistanceSqr = finalAttackRange * finalAttackRange;
 
         // 공격 범위 내로 들어왔다면 공격
         if (distToTargetSqr <= attackDistanceSqr)
         {
             CreatureState = ECreatureState.Skill;
-            skill.DoSkill();
+            // 스킬 상태로 판단
+            //skill.DoSkill();
             return;
         }
         // 공격 범위 밖이면 추적

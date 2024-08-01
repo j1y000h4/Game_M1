@@ -1,3 +1,9 @@
-﻿DataId,Name,ComponentName,ProjectileSpriteName,PrefabLabel,Duration,NumBounce,NumPenerations,HitSound,ProjRange,ProjSpeed
-70001,위자드 총알,StraightMotion,wizard_shot.sprite,Projectile,,,,,,10
-70002,고블린 화살,ParabolaMotion,goblin_shot.sprite,Projectile,,,,,,5
+﻿DataId,Name,ClassName,ComponentName,ProjectileSkeletonId,PrefabLabel,Duration,HitSound,ProjRange,ProjSpeed
+70001,위자드 총알,Projectile,StraightMotion,wizard_shot.sprite,ProjectilePrefab,,,,10
+70002,고블린 화살,Projectile,ParabolaMotion,goblin_shot.sprite,ProjectilePrefab,,,,5
+70003,맹독확산1,PoisonSpreadProj,ParabolaMotion,wizard_shot.sprite,ProjectilePrefab,,,,5
+70004,맹독확산2,PoisonSpreadProj,ParabolaMotion,wizard_shot.sprite,ProjectilePrefab,,,,5
+70005,맹독확산3,PoisonSpreadProj,ParabolaMotion,wizard_shot.sprite,ProjectilePrefab,,,,5
+70006,냉기 확산1,ColdSpreadProj,ParabolaMotion,wizard_shot.sprite,projectilePrefab,,,,5
+70007,냉기 확산2,ColdSpreadProj,ParabolaMotion,wizard_shot.sprite,projectilePrefab,,,,5
+70008,냉기 확산3,ColdSpreadProj,ParabolaMotion,wizard_shot.sprite,projectilePrefab,,,,5

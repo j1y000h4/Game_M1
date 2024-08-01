@@ -1,6 +1,24 @@
-﻿DataId,Name,ClassName,ComponentName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,CoolTime,DamageMultiplier,Duration,NumProjectiles,CastingSound,AngleBetweenProj,SkillRange,RotateSpeed,ScaleMultiplier,AngleRange
-10001,기본공격,NormalAttack,,근접평타,0,,BattleSkillIcon_01,attack,1.2,1,0,3,EnergyBolt_Start,0,0,0,1,0
-10002,위자드 직선평타,NormalAttack,StraightMotion,주변의 적을 향해 에너지 볼트를 발사한다,70001,ProjectilePrefab,BattleSkillIcon_01,attack,1.2,1,0,5,EnergyBolt_Start,0,0,0,1,0
-10003,화살든 고블린 평타,NormalAttack,ParabolaMotion,주변의 적을 향해 에너지 볼트를 발사한다,70002,ProjectilePrefab,BattleSkillIcon_01,attack_b,1.2,1.28,0,3,EnergyBolt_Start,0,0,0,1,0
-10004,보스 원형 공격,AreaAttack,,보스 원형 공격,0,SpellIndicator,,skill_a,5,1,0.9,0,,0,3,0,1,90
-10005,돌진,Dash,,돌진,0,SpellIndicator,,attack,7,1,2,0,,0,5,0,1,0
+﻿DataId,Name,ClassName,Description,ProjectileId,PrefabLabel,IconLabel,AnimName,CoolTime,DamageMultiplier,SkillDuration,AnimImpactDuration,CastingSound,SkillRange,ScaleMultiplier,TargetCount,Effects,NextLevelId,AoE,EffectSize
+10001,기본공격,NormalAttack,근접평타,0,,BattleSkillIcon_01,attack,1.2,1,,0,EnergyBolt_Start,0,1,20,,,,
+10002,위자드 직선평타,NormalAttack,주변의 적을 향해 에너지 볼트를 발사한다,70001,ProjectilePrefab,BattleSkillIcon_01,attack,1.2,1,,0,EnergyBolt_Start,0,1,20,,,,
+10003,화살든 고블린 평타,NormalAttack,주변의 적을 향해 에너지 볼트를 발사한다,70002,ProjectilePrefab,BattleSkillIcon_01,attack_b,1.2,1.28,,0,EnergyBolt_Start,0,1,20,,,,
+10004,보스 원형 공격,AreaAttack,보스 원형 공격,0,SpellIndicator,,skill_a,5,1,,0.9,,3,1,20,,,,
+10005,돌진,Dash,돌진,0,SpellIndicator,,attack,7,1,,2,,5,1,20,,,,
+10006,주인공스킬1,,전방으로 검을 휘둘러 적을 멀리 날린다.,,,,attack,9,1,,0,,1.8,1,20,,,,
+10007,주인공스킬2,,자신의 검을 전개시켜 지속적인 광역피해를 준다.,,,,attack,11,1,,0,,1.8,1,20,,,,
+10008,맹독확산1,PoisonSpread,독이 든 병을 던져 지역을 오염시키고 지속적으로 데미지를 준다.,70003,ProjectilePrefab,,skill_a,5,1.2,5,0,,4,1,20,,10009,80001,CircleSmall
+10009,맹독확산2,PoisonSpread,독이 든 병을 던져 지역을 오염시키고 지속적으로 데미지를 준다.,70003,ProjectilePrefab,,skill_a,5,1.3,5,0,,4,1,20,,10010,80002,CircleNormal
+10010,맹독확산3,PoisonSpread,독이 든 병을 던져 지역을 오염시키고 지속적으로 데미지를 준다.,70003,ProjectilePrefab,,skill_a,5,1.4,5,0,,4,1,20,,,80003,CircleBig
+10011,냉기확산1,ColdSpread,온 세상을 얼려버릴것 같은 한기가 가득찬 병을 던져 광역 범위에 있는 적을 얼리고 피해를 준다.,70004,ProjectilePrefab,,skill_b,10,1,5,0,,4,1,20,,10012,80004,CircleSmall
+10012,냉기확산2,ColdSpread,온 세상을 얼려버릴것 같은 한기가 가득찬 병을 던져 광역 범위에 있는 적을 얼리고 피해를 준다.,70004,ProjectilePrefab,,skill_b,10,1,5,0,,4,1,20,,10013,80005,CircleNormal
+10013,냉기확산3,ColdSpread,온 세상을 얼려버릴것 같은 한기가 가득찬 병을 던져 광역 범위에 있는 적을 얼리고 피해를 준다.,70004,ProjectilePrefab,,skill_b,10,1,5,0,,4,1,20,,,80006,CircleBig
+10014,뱀파스킬1,,전방의 적에게 돌진하여 출혈상태로 만들고 5회 연속으로 검을 휘둘러 피해를 준다.,,,,attack,17,1,,0,,4,1,20,,,,
+10015,뱀파스킬2,,검을 휘둘러 광역피해를 주고 피해량의 일부를 체력으로 흡수한다. 출혈상태인 적에게는 더 큰 피해를 준다.,,,,attack,19,1,,0,,1.8,1,20,,,,
+10018,사자수인1,AreaAirbone,자리에서 뛰어올라 바닥을 내려찍으며 자신을 중심으로 광역피해를 주고 적을 띄운다.,0,SpellIndicator,,skill_a,5,1,1,0,,1.8,1,20,62002,,,
+10019,사자후인2,LionShout,자센의 체력을 소모하여 아군3명을 광분상태로 만들어 가속시키고 흡혈량을 증가시킨다.,0,SpellIndicator,,skill_b,15,1,4,0,,5,1,3,61003&61005&61007,,,
+10020,화염검1,FireSword,자신을 중심으로 광역 범위에 적들에게 데미지를 주고 화상 상태로 만든다.,,AoEPrefab,,skill_a,5,1.3,,,,1.8,1,20,,10021,80007,ConeBig
+10021,화염검2,FireSword,자신을 중심으로 광역 범위에 적들에게 데미지를 주고 화상 상태로 만든다.,,AoEPrefab,,skill_a,5,1.3,,,,1.8,1,20,,10022,80008,ConeBig
+10022,화염검3,FireSword,자신을 중심으로 광역 범위에 적들에게 데미지를 주고 화상 상태로 만든다.,,AoEPrefab,,skill_a,5,1.3,,,,1.8,1,20,,,80009,ConeBig
+10023,다중 화염검1,MultiFireSword,화염으로 이루어진 검을 소환하여 광역 피해를 준다,,AoEPrefab,,skill_b,10,1.3,,,,4,1,20,,10024,80010,CircleBig
+10024,다중 화염검2,MultiFireSword,화염으로 이루어진 검을 소환하여 광역 피해를 준다,,AoEPrefab,,skill_b,10,1.3,,,,4,1,20,,10025,80011,CircleBig
+10025,다중 화염검1,MultiFireSword,화염으로 이루어진 검을 소환하여 광역 피해를 준다,,AoEPrefab,,skill_b,10,1.3,,,,4,1,20,,,80012,CircleBig

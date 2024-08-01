@@ -31,16 +31,7 @@ public class NormalAttack : SkillBase
         Owner.LookAtTarget(Owner.Target);
     }
 
-    protected override void OnAnimEventHandler(TrackEntry trackEntry, Spine.Event e)
-    {
-        // 우리가 실행하고자하는 SkillData와 같은지 확인
-        if (e.ToString().Contains(SkillData.AnimName))
-        {
-            OnAttackEvent();
-        }
-    }
-
-    protected virtual void OnAttackEvent()
+    protected override void OnAttackEvent()
     {
         // Target이 유효하지 않으면 그냥 리턴
         if (Owner.Target.IsValid() == false)
@@ -59,18 +50,5 @@ public class NormalAttack : SkillBase
             GenerateProjectile(Owner, Owner.CenterPosition);
         }
 
-    }
-
-    protected override void OnAnimCompleteHandler(TrackEntry trackEntry)
-    {
-        if (Owner.Target.IsValid() == false)
-        {
-            return;
-        }
-
-        if (Owner.CreatureState == ECreatureState.Skill)
-        {
-            Owner.CreatureState = ECreatureState.Move;
-        }
     }
 }

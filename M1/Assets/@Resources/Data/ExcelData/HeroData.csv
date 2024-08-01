@@ -1,6 +1,7 @@
-﻿DataId,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,Mass,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,Def,MovSpeed,TotalExp,HpRate,AtkRate,DefRate,MoveSpeedRate,IconImage,SkeletonDataID,AnimatorName,SkillList,DropItemId
-201000,위자드,Hero,0,0.5,0.6,15,1000,2,25,4,2,0,5,200,1,1,1,1,002.sprite,002_SkeletonData,,10002,
-201001,주인공,Hero,0,0.5,0.6,15,1000,2,25,1.8,2,0,5,200,1,1,1,1,001.sprite,001_SkeletonData,,10001,
-201002,연금술사,Hero,0,0.5,0.6,15,1000,2,25,4,2,0,5,200,1,1,1,1,002.sprite,003_SkeletonData,,10002,
-201003,사자,Hero,0,0.5,0.6,15,1000,2,25,1.8,2,0,5,200,1,1,1,1,001.sprite,004_SkeletonData,,10001,
-201004,뱀파,Hero,0,0.5,0.6,15,1000,2,25,1.8,2,0,5,200,1,1,1,1,001.sprite,005_SkeletonData,,10001,
+﻿DataId,DescriptionTextID,Label,ColliderOffSetX,ColliderOffsetY,ColliderRadius,MaxHp,UpMaxHp,Atk,AtkRange,AtkBonus,MovSpeed,CriRate,Cridamage,IconImage,SkeletonDataID,DefaultSkill,EnvSkill,SkillA,SkillB
+201000,위자드,HeroPrefab,0,0.5,0.6,1000,2,25,4,2,5,0.15,1.5,002.sprite,002_SkeletonData,10002,0,0,0
+201001,주인공,HeroPrefab,0,0.5,0.6,1000,2,25,1.8,2,5,0.15,1.5,001.sprite,001_SkeletonData,10001,0,0,0
+201002,연금술사,HeroPrefab,0,0.5,0.6,1000,2,25,4,2,5,0.15,1.5,003.sprite,003_SkeletonData,10002,0,10008,10011
+201003,사자,HeroPrefab,0,0.5,0.6,1000,2,25,1.8,2,5,0.15,1.5,004.sprite,004_SkeletonData,10001,0,10018,10019
+201004,뱀파,HeroPrefab,0,0.5,0.6,1000,2,25,1.8,2,5,0.15,1.5,005.sprite,005_SkeletonData,10001,0,0,0
+201020,오웬,HeroPrefab,0,0.5,0.6,1000,2,25,1.8,2,5,0.15,1.5,020.sprite,020_SkeletonData,10001,0,10020,0
