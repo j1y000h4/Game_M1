@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class Managers : MonoBehaviour
 {
@@ -55,4 +56,55 @@ public class Managers : MonoBehaviour
             s_instance = go.GetComponent<Managers>();
         }
     }
+
+    #region Skill 판정
+    // 스킬 판정과 관련된 부분
+    public List<Creature> FindConeRangeTargets(Creature owner, Vector3 dir, float range, int angleRange, bool isAllies = false)
+    {
+        List<Creature> targets = new List<Creature>();
+        List<Creature> ret = new List<Creature>();
+
+        // 아군? or 적군?
+        ECreatureType targetType = Util.DetermineTargetType(owner.CreatureType, isAllies);
+
+        if (targetType == ECreatureType.Monster)
+        {
+            var objs = Managers.mapManager.GatherObjects<Monster>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+        else if (targetType == ECreatureType.Hero)
+        {
+            var objs = Managers.mapManager.GatherObjects<Hero>(owner.transform.position, range, range);
+            targets.AddRange(objs);
+        }
+
+        foreach (var target in targets)
+        {
+            // 1. 거리안에 있는지 확인
+            var targetPos = target.transform.position;
+            float distance = Vector3.Distance(targetPos, owner.transform.position);
+
+            if (distance > range)
+                continue;
+
+            // 2. 각도 확인
+            if (angleRange != 360)
+            {
+                BaseObject ownerTarget = (owner as Creature).Target;
+
+                // 2. 부채꼴 모양 각도 계산
+                float dot = Vector3.Dot((targetPos - owner.transform.position).normalized, dir.normalized);
+                float degree = Mathf.Rad2Deg * Mathf.Acos(dot);
+
+                if (degree > angleRange / 2f)
+                    continue;
+            }
+
+            ret.Add(target);
+        }
+
+        return ret;
+    }
+
+    #endregion
 }

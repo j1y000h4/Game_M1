@@ -99,6 +99,9 @@ public class MapManager
         if (tm != null)
             tm.gameObject.SetActive(false);
 
+        // TEMP
+        return;
+
         // 한칸한칸 체크
         for (int y = tm.cellBounds.yMax; y >= tm.cellBounds.yMin; y--)
         {
@@ -154,6 +157,39 @@ public class MapManager
     }
 
     #region Helpers
+
+    // 원하는 타입 긁어 오기
+    // 왜 MapManager인가?를 생각해보기. 공간분할! 맵의 위치에 따라!
+    public List<T> GatherObjects<T>(Vector3 pos, float rangeX, float rangeY) where T : BaseObject
+    {
+        List<T> objects = new List<T>();
+
+        Vector3Int left = World2Cell(pos + new Vector3(-rangeX, 0));
+        Vector3Int right = World2Cell(pos + new Vector3(+rangeX, 0));
+        Vector3Int bottom = World2Cell(pos + new Vector3(0, -rangeY));
+        Vector3Int top = World2Cell(pos + new Vector3(0, +rangeY));
+        int minX = left.x;
+        int maxX = right.x;
+        int minY = bottom.y;
+        int maxY = top.y;
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                Vector3Int tilePos = new Vector3Int(x, y, 0);
+
+                // 타입에 맞는 리스트 리턴
+                T obj = GetObject(tilePos) as T;
+                if (obj == null)
+                    continue;
+
+                objects.Add(obj);
+            }
+        }
+
+        return objects;
+    }
 
     // cellPos 버전
     // GetObject = 그 위치에 있는 걸 가져오는 기능

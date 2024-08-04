@@ -316,14 +316,16 @@ public class Creature : BaseObject
 
         // TEMP
         // Hero 무적 로직
-        if (CreatureType == ECreatureType.Hero)
-        {
-            return;
-        }
+        //if (CreatureType == ECreatureType.Hero)
+        //{
+        //    return;
+        //}
 
         // Hp를 작성할때 Clamp로 처리해주기
         float finalDamage = creature.Atk;
         Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp);
+
+        Managers.objectManager.ShowDamageFont(CenterPosition, finalDamage, transform, false);
 
         if (Hp <= 0)
         {

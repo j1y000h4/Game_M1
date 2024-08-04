@@ -80,6 +80,8 @@ public class Env : BaseObject
 
         // TODO Show UI
 
+        Managers.objectManager.ShowDamageFont(CenterPosition, finalDamage, transform, false);
+
         Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp);
         if (Hp <= 0)
         {

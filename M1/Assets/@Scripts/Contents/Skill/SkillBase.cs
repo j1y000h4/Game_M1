@@ -96,6 +96,12 @@ public abstract class SkillBase : InitBase
         }
     }
 
+    public virtual void CancelSkill()
+    {
+
+
+    }
+
     protected virtual void GenerateProjectile(Creature owner, Vector3 spawnPos)
     {
         Projectile projectile = Managers.objectManager.Spawn<Projectile>(spawnPos, SkillData.ProjectileId);
