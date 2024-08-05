@@ -1,0 +1,16 @@
+chloe_skill_1.png
+size:1132,368
+filter:Linear,Linear
+pma:true
+1
+bounds:2,9,300,357
+offsets:94,41,506,506
+2
+bounds:592,18,279,348
+offsets:99,39,506,506
+3
+bounds:304,2,286,364
+offsets:117,20,506,506
+4
+bounds:873,2,254,364
+offsets:139,39,506,506

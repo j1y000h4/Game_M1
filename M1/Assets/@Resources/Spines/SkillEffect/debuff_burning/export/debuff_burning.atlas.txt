@@ -1,0 +1,16 @@
+debuff_burning.png
+size:244,328
+filter:Linear,Linear
+pma:true
+1
+bounds:126,175,110,150
+offsets:400,653,906,906
+2
+bounds:2,24,130,149
+offsets:380,655,906,906
+3
+bounds:2,179,122,146
+offsets:380,655,906,906
+4
+bounds:134,2,108,171
+offsets:405,653,906,906

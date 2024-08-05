@@ -1,0 +1,16 @@
+attack_speed_up.png
+size:184,1008
+filter:Linear,Linear
+pma:true
+atk_speed_up_1
+bounds:2,741,180,264
+offsets:4,3,188,270
+atk_speed_up_2
+bounds:2,234,180,239
+offsets:4,7,188,253
+atk_speed_up_3
+bounds:2,2,180,230
+offsets:4,4,188,239
+atk_speed_up_4
+bounds:2,475,177,264
+offsets:4,3,184,292

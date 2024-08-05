@@ -1,0 +1,31 @@
+﻿DataId,Name,ClassName,Description,SkeletonDataId,IconLabel,SoundLabel,Amount,PercentAdd,PercentMult,TickTime,TickCount,EffectType
+60001,도트뎀출혈,DotBase,한틱당 4만큼 도트뎀 5초 유지,,,,4,0,0,1,5,Debuff
+60002,도트뎀독,DotBase,한틱당 3만큼 도트뎀 5초 유지,debuff_poison_1_SkeletonData,,,3,0,0,1,5,Debuff
+60003,화상,DotBase,한틱당 최대체력 1% 도트뎀 5초유지,,,,0,0.05,0,1,5,Debuff
+60004,도트힐,DotBase,한틱당 최대체력의 2%를 5초동안 올려준다,heal_1_SkeletonData,,,0,0.05,0,1,5,Debuff
+60005,힐,DotBase,한틱당 체력 50만큼 회복,heal_1_SkeletonData,,,50,1,0,1,1,Buff
+61001,공업버프,AttackBuff,Amount + percent,,,,0,0.3,0,1,5,Buff
+61002,공업디버프,AttackBuff,Amount + percent,,,,0,-0.3,0,1,5,Debuff
+61003,이속버프,MoveSpeedBuff,Amount + percent,,,,0,0.2,0,1,5,Buff
+61004,이속디버프,MoveSpeedBuff,Amount + percent,,,,0,-0.2,0,1,5,Debuff
+61005,공속버프,AttackSpeedBuff,Amount + percent,buff_attack_speed_SkeletonData,,,0,0.5,0,1,5,Buff
+61006,공속디버프,AttackSpeedBuff,Amount + percent,,,,0,-0.3,0,1,5,Debuff
+61007,흡혈량버프,LifeStealBuff,Amount + percent,buff_blood_up_SkeletonData,,,0.3,0,0,1,5,Buff
+61008,흡혈량디버프,LifeStealBuff,Amount + percent,,,,-0.3,0,0,1,5,Debuff
+61009,받는피해버프,ReduceDmgBuff,Amount + percent,,,,0.3,0,0,1,5,Buff
+61010,받는피해디버프,ReduceDmgBuff,Amount + percent,,,,-0.3,0,0,1,5,Debuff
+61011,가시,ThornsBuff,총 데미지의 몇퍼만큼 데미지 반사,,,,0.3,0,0,1,5,Debuff
+62001,넉백,KnockbackEffect,한틱에 넉백(수치는 클라에서 조절),,,,0,0,0,0.5,1,Debuff
+62002,에어본,Airborne,Duration동안 에어본,,,,0,0,0,1,1,CrowdControl
+62003,땡기기,PullEffect,한틱당 조금씩 댕김,,,,0,0,0,0.5,1,CrowdControl
+62004,스턴,Stun,Duration 동안 스턴,stun_SkeletonData,,,0,0,0,1,2,CrowdControl
+62006,정화,CleanDebuff,Duration 동안 스턴,,,,0,0,0,0,0,Buff
+60006,맹독확산1 Effect,DotBase,한틱당 3만큼 도트뎀 5초 유지,debuff_poison_1_SkeletonData,,,3,0,0,1,5,Debuff
+60007,맹독확산2 Effect,DotBase,한틱당 3만큼 도트뎀 5초 유지,debuff_poison_1_SkeletonData,,,3,0,0,1,5,Debuff
+60008,맹독확산3 Effect,DotBase,한틱당 3만큼 도트뎀 5초 유지,debuff_poison_1_SkeletonData,,,3,0,0,1,5,Debuff
+60009,빙결1,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,0,0,0,1,1,Debuff
+60010,빙결2,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,0,0,0,1,2,Debuff
+60011,빙결3,DotBase,Duration 동안 스턴,debuff_freezing_SkeletonData,,,0,0,0,1,3,Debuff
+60012,화상1,DotBase,한틱당 최대체력 1% 도트뎀 5초유지,debuff_burning_SkeletonData,,,0,0.05,0,1,5,Debuff
+60013,화상2,DotBase,한틱당 최대체력 1% 도트뎀 5초유지,debuff_burning_SkeletonData,,,0,0.05,0,1,5,Debuff
+60014,화상3,DotBase,한틱당 최대체력 1% 도트뎀 5초유지,debuff_burning_SkeletonData,,,0,0.05,0,1,5,Debuff

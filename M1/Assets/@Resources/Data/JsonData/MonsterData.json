@@ -133,9 +133,9 @@
       "CriDamage": 1.5,
       "IconImage": "003.sprite",
       "SkeletonDataID": "bear_SkeletonData",
-      "DefaultSkillId": 10004,
+      "DefaultSkillId": 10001,
       "EnvSkillId": 0,
-      "SkillAId": 0,
+      "SkillAId": 10004,
       "SkillBId": 0
     }
   ]

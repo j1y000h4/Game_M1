@@ -89,6 +89,60 @@ MonoBehaviour:
     m_SerializedLabels:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 412e86c0477da6a42be997234cf0dd49
+    m_Address: buff_blood_up_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 350095c80b7108043a7ab0d94276b5d4
+    m_Address: debuff_freezing_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f56ff53c22d27df4aa187dd5c2caf54f
+    m_Address: debuff_burning_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 26f2244b990f5ae459290af6d2a7aa2b
+    m_Address: stun_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb66a3ab50dd92142af4a227daa67639
+    m_Address: chloe_skill_1_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db99d3af36e18d94fa4d82ce5255f856
+    m_Address: buff_attack_speed_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f3bb8bb48f0e7346b62204f1fa35dea
+    m_Address: debuff_poison_1_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0cc21ba2e5bbd142b438282c9a00598
+    m_Address: heal_1_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 378dd7a7a523b164496aa5b261580005
+    m_Address: bear_SkeletonData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f2a783ca793969246bc376885f74ca77, type: 2}
   m_SchemaSet:

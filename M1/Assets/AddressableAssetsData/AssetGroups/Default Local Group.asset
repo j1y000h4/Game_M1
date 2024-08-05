@@ -16,25 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: dc0ccb2b503f97d4b91b9d9b9714d108
-  m_SerializeEntries:
-  - m_GUID: 378dd7a7a523b164496aa5b261580005
-    m_Address: bear_SkeletonData
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 17f2042330a4cd548afdf146932ebddc
-    m_Address: SpellIndicator
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4ed5e22987842264f968e1074759fa65
-    m_Address: DamageFont
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PreLoad
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f2a783ca793969246bc376885f74ca77, type: 2}
   m_SchemaSet:

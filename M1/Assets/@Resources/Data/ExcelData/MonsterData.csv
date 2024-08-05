@@ -4,4 +4,4 @@
 202003,희귀거미,MonsterPrefab,0,0.51,0.5,700,5,2,2.3,2,4,0,1.5,003.sprite,spider_rare_SkeletonData,10001,0,0,0,400000
 202004,나무맨,MonsterPrefab,0,0.19,0.5,500,4,2,1.8,2,4,0,1.5,003.sprite,wood_common_SkeletonData,10001,0,0,0,400000
 202005,활 든 고블린,MonsterPrefab,0,0.5,0.5,400,4,2,4,2,4,0,1.5,003.sprite,goblin_SkeletonData,10003,0,0,0,400000
-202006,곰,MonsterPrefab,0,0.28,0.28,10000,4,2,1.8,2,6,0,1.5,003.sprite,bear_SkeletonData,10004,0,0,0,400000
+202006,곰,MonsterPrefab,0,0.28,0.28,10000,4,2,1.8,2,6,0,1.5,003.sprite,bear_SkeletonData,10001,0,10004,0,400000

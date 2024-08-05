@@ -40,7 +40,6 @@ public class Monster : Creature
         }
 
         CreatureType = ECreatureType.Monster;
-        MoveSpeed = 3.0f;
 
         // AI
         StartCoroutine(CoUpdateAI());

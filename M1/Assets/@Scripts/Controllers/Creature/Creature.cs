@@ -16,20 +16,17 @@ public class Creature : BaseObject
 
     #region Stats
     // 초기값들. Creature의 공통적인 부분들
+    // Stat을 두가지로 설정해서 관리. Base와 변경된 Stat들
     public float Hp { get; set; }
-    public float MaxHp { get; set; }
-    public float MaxHpBonusRate { get; set; }
-    public float HealBonusRate { get; set; }
-    public float HpRegen { get; set; }
-    public float Atk { get; set; }
-    public float AttackRate { get; set; }
-    public float Def { get; set; }
-    public float DefRate { get; set; }
-    public float CriRate { get; set; }
-    public float CriDamage { get; set; }
-    public float DamageReduction { get; set; }
-    public float MoveSpeedRate { get; set; }
-    public float MoveSpeed { get; set; }
+    public CreatureStat MaxHp;
+    public CreatureStat Atk;
+    public CreatureStat CriRate;
+    public CreatureStat CriDamage;
+    public CreatureStat ReduceDamageRate;
+    public CreatureStat LifeStealRate;
+    public CreatureStat ThornsDamageRate; // 쏜즈
+    public CreatureStat MoveSpeed;
+    public CreatureStat AttackSpeedRate;
     #endregion
 
     protected float AttackDistance
@@ -119,11 +116,16 @@ public class Creature : BaseObject
         Skills.SetInfo(this, CreatureData);
 
         // Stat
-        MaxHp = CreatureData.MaxHp;
         Hp = CreatureData.MaxHp;
-        Atk = CreatureData.MaxHp;
-        MaxHp = CreatureData.MaxHp;
-        MoveSpeed = CreatureData.MoveSpeed;
+        MaxHp = new CreatureStat(CreatureData.MaxHp);
+        Atk = new CreatureStat(CreatureData.Atk);
+        CriRate = new CreatureStat(CreatureData.CriRate);
+        CriDamage = new CreatureStat(CreatureData.CriDamage);
+        ReduceDamageRate = new CreatureStat(0);
+        LifeStealRate = new CreatureStat(0);
+        ThornsDamageRate = new CreatureStat(0);
+        MoveSpeed = new CreatureStat(CreatureData.MoveSpeed);
+        AttackSpeedRate = new CreatureStat(1);
 
         // State
         CreatureState = ECreatureState.Idle;
@@ -314,16 +316,9 @@ public class Creature : BaseObject
             return;
         }
 
-        // TEMP
-        // Hero 무적 로직
-        //if (CreatureType == ECreatureType.Hero)
-        //{
-        //    return;
-        //}
-
         // Hp를 작성할때 Clamp로 처리해주기
-        float finalDamage = creature.Atk;
-        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp);
+        float finalDamage = creature.Atk.Value;
+        Hp = Mathf.Clamp(Hp - finalDamage, 0, MaxHp.Value);
 
         Managers.objectManager.ShowDamageFont(CenterPosition, finalDamage, transform, false);
 
