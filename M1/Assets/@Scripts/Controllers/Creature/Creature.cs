@@ -14,6 +14,9 @@ public class Creature : BaseObject
     public Data.CreatureData CreatureData { get; protected set; }
     public ECreatureType CreatureType { get; protected set; } = ECreatureType.None;
 
+    // EffectComponent를 Creature에 붙이기. 
+    public EffectComponent Effects { get; set; }
+
     #region Stats
     // 초기값들. Creature의 공통적인 부분들
     // Stat을 두가지로 설정해서 관리. Base와 변경된 Stat들
@@ -96,20 +99,7 @@ public class Creature : BaseObject
         RigidBody.mass = 0;
 
         // Spine
-        SkeletonAnim.skeletonDataAsset = Managers.resourceManager.Load<SkeletonDataAsset>(CreatureData.SkeletonDataID);
-        SkeletonAnim.Initialize(true);
-
-        // Register AnimEvent
-        if (SkeletonAnim.AnimationState != null)
-        {
-            SkeletonAnim.AnimationState.Event -= OnAnimEventHandler;
-            SkeletonAnim.AnimationState.Event += OnAnimEventHandler;
-        }
-
-        // Spine SkeletonAnimation은 SpriteRenderer 를 사용하지 않고 MeshRenderer을 사용함.
-        // 그렇기떄문에 2D Sort Axis가 안먹히게 되는데 SortingGroup을 SpriteRenderer, MeshRenderer을같이 계산함.
-        SortingGroup sg = Util.GetOrAddComponent<SortingGroup>(gameObject);
-        sg.sortingOrder = SortingLayers.CREATURE;
+        SetSpineAnimation(CreatureData.SkeletonDataID, SortingLayers.CREATURE);
 
         // Skills
         Skills = gameObject.GetOrAddComponent<SkillComponent>();
@@ -129,6 +119,10 @@ public class Creature : BaseObject
 
         // State
         CreatureState = ECreatureState.Idle;
+
+        // Effects
+        Effects = gameObject.AddComponent<EffectComponent>();
+        Effects.SetInfo(this);
 
         // Map
         StartCoroutine(CoLerpToCellPos());

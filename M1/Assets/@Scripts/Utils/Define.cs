@@ -40,6 +40,7 @@ public static class Define
         Projectile,
         Env,
         HeroCamp,
+        Effect,
     }
 
     public enum ECreatureType

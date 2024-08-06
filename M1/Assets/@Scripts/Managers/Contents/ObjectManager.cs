@@ -12,6 +12,7 @@ public class ObjectManager
     public HashSet<Monster> Monsters { get; } = new HashSet<Monster>();
     public HashSet<Projectile> Projectiles { get; } = new HashSet<Projectile>();
     public HashSet<Env> Envs { get; } = new HashSet<Env>();
+    public HashSet<EffectBase> Effects { get; } = new HashSet<EffectBase>();
     public HeroCamp Camp { get; private set; }
 
     #region Roots
@@ -31,6 +32,7 @@ public class ObjectManager
     public Transform MonsterRoot { get { return GetRootTransform("@Monsters"); } }
     public Transform ProjectileRoot { get { return GetRootTransform("@Projectiles"); } }
     public Transform EnvRoot { get { return GetRootTransform("@Envs"); } }
+    public Transform EffectRoot { get { return GetRootTransform("@Effects"); } }
     #endregion
 
     // Font를 생성하는 부분
@@ -40,6 +42,21 @@ public class ObjectManager
         GameObject go = Managers.resourceManager.Instantiate("DamageFont", pooling: true);
         DamageFont damageText = go.GetComponent<DamageFont>();
         damageText.SetInfo(position, damage, parent, isCritical);
+    }
+
+    // prefab을 받아서 GameObject로 만들어 뱉어주는 함수
+    public GameObject SpawnGameObject(Vector3 position, string prefabName)
+    {
+        GameObject go = Managers.resourceManager.Instantiate(prefabName, pooling: true);
+        go.transform.position = position;
+        return go;
+    }
+
+    // CellPos를 바탕으로 Spawn하는 Spawn함수
+    public T Spawn<T>(Vector3Int cellPos, int templateID) where T : BaseObject
+    {
+        Vector3 spawnPos = Managers.mapManager.Cell2World(cellPos);
+        return Spawn<T>(spawnPos, templateID);
     }
 
     // BaseObject를 상속받는 컴포넌트를 기입해서 Spawn해달라
