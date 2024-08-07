@@ -15,6 +15,7 @@ public class EffectComponent : MonoBehaviour
         _owner = Owner;
     }
 
+
     // 이펙트 생성 후 등록, 실행
     public List<EffectBase> GenerateEffects(IEnumerable<int> effectIds, EEffectSpawnType spawnType)
     {
@@ -25,7 +26,7 @@ public class EffectComponent : MonoBehaviour
             string className = Managers.dataManager.EffectDic[id].ClassName;
             Type effectType = Type.GetType(className);
 
-            if (effectType == null)
+            if (effectType == null) 
             {
                 Debug.LogError($"Effect Type not found: {className}");
                 return null;

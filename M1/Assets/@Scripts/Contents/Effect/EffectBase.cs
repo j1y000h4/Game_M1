@@ -51,10 +51,23 @@ public class EffectBase : BaseObject
         }
     }
 
+    // 이펙트 종류
+    // 도트 뎀
+    // 도트 힐
+    // 패시브 영구적
+    // 힘 버프 (Buff, 1(힘)) ... 이런식으로 공식을 만들어두고 데이터에 적용시키기 (Type, SubType)
+    // 체력 버프
+    // 민첩 디버프
+    // ...
+    // 이런 데이터 시트 만들기가 굉장히 어렵다!
+
     public virtual void ApplyEffect()
     {
         ShowEffect();
         StartCoroutine(CoStartTimer());
+
+        // 이펙트의 효과!
+        // 분기처리.. if / switch ...
     }
 
     protected virtual void ShowEffect()

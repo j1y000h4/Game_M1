@@ -25,12 +25,14 @@ public class SkillComponent : InitBase
     {
         get
         {
+
             if (ActiveSkills.Count == 0)
             {
                 return DefaultSkill;
             }
 
-            int randomIndex = Random.Range(0, ActiveSkills.Count);
+            int randomIndex = Random.Range(0, ActiveSkills.Count + 1);
+            Debug.Log(" > RandomIndex : " + randomIndex);
             return ActiveSkills[randomIndex];
         }
     }

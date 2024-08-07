@@ -152,6 +152,11 @@ public class ObjectManager
             Env env = obj as Env;
             Envs.Remove(env);
         }
+        else if (obj.ObjectType == EObjectType.Effect)
+        {
+            EffectBase effect = obj as EffectBase;
+            Effects.Remove(effect);
+        }
         else if (obj.ObjectType == EObjectType.HeroCamp)
         {
             Camp = null;
