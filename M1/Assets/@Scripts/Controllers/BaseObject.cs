@@ -9,6 +9,9 @@ using static Define;
 
 public class BaseObject : InitBase
 {
+    // 1칸이 아닌 대형 유닛들을 위한
+    public int ExtraCells { get; set; } = 0;
+
     public EObjectType ObjectType { get; protected set; } = EObjectType.None;
     public CircleCollider2D Collider { get; private set; }
     public SkeletonAnimation SkeletonAnim { get; private set; }

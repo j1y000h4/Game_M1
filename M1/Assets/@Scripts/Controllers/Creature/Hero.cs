@@ -17,20 +17,6 @@ public class Hero : Creature
             if(_creatureState != value)
             {
                 base.CreatureState = value;
-
-                // Grid 방식으로 가는 이상 ColliderSize를 이용한 이동 로직은 필요없어지게 된다!!
-                //switch (value)
-                //{
-                //    case ECreatureState.Move:
-                //        RigidBody.mass = CreatureData.Mass * 5.0f;
-                //        break;
-                //    case ECreatureState.Skill:
-                //        RigidBody.mass = CreatureData.Mass * 500.0f;
-                //        break;
-                //    default:
-                //        RigidBody.mass = CreatureData.Mass;
-                //        break;
-                //}
             }
         }
     }

@@ -70,7 +70,6 @@ public class Creature : BaseObject
         }
 
         ObjectType = EObjectType.Creature;
-        //CreatureState = ECreatureState.Idle;
 
         return true;
     }
@@ -135,11 +134,9 @@ public class Creature : BaseObject
             case ECreatureState.Idle:
                 PlayAnimation(0, AnimName.IDLE, true);
                 break;
-
             case ECreatureState.Skill:
                 //PlayAnimation(0, AnimName.ATTACK_A, true);
                 break;
-
             case ECreatureState.Move:
                 PlayAnimation(0, AnimName.MOVE, true);
                 break;
@@ -212,25 +209,6 @@ public class Creature : BaseObject
             }
         }
     }
-
-    //// bool 형으로 else if 남발하는 것보다 훨씬 깔끔
-    //private void Update()
-    //{
-    //    switch(CreatureState)
-    //    {
-    //        case ECreatureState.Idle:
-    //            UpdateIdle();
-    //            break;
-    //        case ECreatureState.Move:
-    //            UpdateMove();
-    //            break;
-    //        case ECreatureState.Skill:
-    //            UpdateSkill();
-    //            break;
-    //        case ECreatureState.Dead:
-    //            UpdateDead();
-    //            break;
-    //    }
 
     protected virtual void UpdateIdle() { }
     protected virtual void UpdateMove() { }

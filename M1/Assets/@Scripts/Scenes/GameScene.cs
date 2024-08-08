@@ -36,6 +36,7 @@ public class GameScene : BaseScene
                 continue;
 
             Hero hero = Managers.objectManager.Spawn<Hero>(new Vector3Int(1, 0, 0), heroTemplateID);
+            //hero.ExtraCells = 1;
             Managers.mapManager.MoveTo(hero, randCellPos, true);
 
         }
@@ -46,9 +47,9 @@ public class GameScene : BaseScene
         Managers.uiManager.ShowBaseUI<UI_Joystick>();
 
         {
-            Monster monster = Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_SLIME_ID);
-            Managers.mapManager.MoveTo(monster, new Vector3Int(0, 4, 0), true);
-            //Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_GOBLIN_ARCHER_ID);
+            //Monster monster = Managers.objectManager.Spawn<Monster>(new Vector3(1, 1, 0), MONSTER_SLIME_ID);
+            //monster.ExtraCells = 1;
+            //Managers.mapManager.MoveTo(monster, new Vector3Int(0, 4, 0), true);
         }
 
         {

@@ -31,7 +31,7 @@ public class SkillComponent : InitBase
                 return DefaultSkill;
             }
 
-            int randomIndex = Random.Range(0, ActiveSkills.Count + 1);
+            int randomIndex = Random.Range(0, ActiveSkills.Count);
             Debug.Log(" > RandomIndex : " + randomIndex);
             return ActiveSkills[randomIndex];
         }

@@ -7,7 +7,7 @@ using Event = Spine.Event;
 public abstract class SkillBase : InitBase
 {
     public Creature Owner { get; protected set; }
-    public float RemainCoolTime {  get; protected set; }
+    public float RemainCoolTime {  get; set; }
     public Data.SkillData SkillData { get; private set; }
 
     public override bool Init()
@@ -48,7 +48,7 @@ public abstract class SkillBase : InitBase
         }
         if (Owner.SkeletonAnim == null)
         {
-
+            return;
         }
         if (Owner.SkeletonAnim.AnimationState == null)
         {
@@ -60,7 +60,7 @@ public abstract class SkillBase : InitBase
 
     public virtual void DoSkill()
     {
-        RemainCoolTime = SkillData.CoolTime;
+        //RemainCoolTime = SkillData.CoolTime;
 
         // 준비된 스킬 리스트에서 해제 시켜준다.
         if (Owner.Skills != null)
