@@ -138,7 +138,7 @@ public class MapManager
     public bool MoveTo(Creature obj, Vector3Int cellPos, bool forceMove = false)
     {
         // CanGo로 갈 수 있는가? 체크
-        if (CanGo(cellPos) == false)
+        if (CanGo(obj, cellPos) == false)
         {
             return false;
         }
@@ -207,44 +207,97 @@ public class MapManager
         return GetObject(cellPos);
     }
 
-    public bool RemoveObject(BaseObject obj)
+    void RemoveObject(BaseObject obj)
     {
-        BaseObject prev = GetObject(obj.CellPos);
+        // 기존의 좌표 제거
+        int extraCells = 0;
+        if (obj != null)
+        {
+            extraCells = obj.ExtraCells;
+        }
 
-        // 처음 신청했으면 해당 CellPos의 오브젝트가 본인이 아닐 수도 있음
-        if (prev != obj)
-            return false;
+        Vector3Int cellPos = obj.CellPos;
 
-        _cells[obj.CellPos] = null;
-        return true;
+        // 모든 칸을 순회하면서 데이터 들고 오기(newCellPos)
+        for (int dx = -extraCells; dx <= extraCells; dx++)
+        {
+            for (int dy = -extraCells; dy <= extraCells; dy++)
+            {
+                Vector3Int newCellPos = new Vector3Int(cellPos.x + dx, cellPos.y + dy);
+                BaseObject prev = GetObject(newCellPos);
+
+                // 해당 위치에 내가 있었으면 null로 지워주기
+                if (prev == obj)
+                {
+                    _cells[newCellPos] = null;
+                }
+            }
+        }
     }
 
-    public bool AddObject(BaseObject obj, Vector3Int cellPos)
+    void AddObject(BaseObject obj, Vector3Int cellPos)
     {
-        if (CanGo(cellPos) == false)
+        int extraCells = 0;
+        if (obj != null)
         {
-            Debug.LogWarning($"AddObject Failed");
-            return false;
+            extraCells = obj.ExtraCells;
         }
 
-        BaseObject prev = GetObject(cellPos);
-        if (prev != null)
+        // 모든 칸을 순회
+        for (int dx = -extraCells; dx <= extraCells; dx++)
         {
-            Debug.LogWarning($"AddObject Failed");
-            return false;
-        }
+            for (int dy = -extraCells; dy <= extraCells; dy++)
+            {
+                Vector3Int newCellPos = new Vector3Int(cellPos.x + dx, cellPos.y + dy);
+                BaseObject prev = GetObject(newCellPos);
 
-        _cells[cellPos] = obj;
-        return true;
+                // 다음 칸이 null이 아니고 내가 있는게 아니라면 못 갈 확률이 매우 높으니 로그로 체크
+                if (prev != null && prev != obj)
+                {
+                    Debug.LogWarning($"AddObject 수상함");
+                }
+
+                _cells[newCellPos] = obj;
+            }
+        }
     }
 
     // 그 위치로 갈 수 있느냐?
-    public bool CanGo(Vector3 worldPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
+    // 0809 수정
+    public bool CanGo(BaseObject self, Vector3 worldPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
     {
-        return CanGo(World2Cell(worldPos), ignoreObjects, ignoreSemiWall);
+        return CanGo(self, World2Cell(worldPos), ignoreObjects, ignoreSemiWall);
     }
 
-    public bool CanGo(Vector3Int cellPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
+    public bool CanGo(BaseObject self,Vector3Int cellPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
+    {
+        int extraCells = 0;
+
+        if (self != null)
+        {
+            extraCells = self.ExtraCells;
+        }
+        
+        // -1 0 1
+        // -1 0 1
+        for (int dx = -extraCells; dx <= extraCells; dx++)
+        {
+            for (int dy = -extraCells; dy <= extraCells; dy++)
+            {
+                Vector3Int checkPos = new Vector3Int(cellPos.x + dx, cellPos.y + dy);
+
+                if (CanGo_Internal(self, checkPos, ignoreObjects, ignoreSemiWall) == false)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    // 1칸을 이동할 수 있는지에 대한 함수
+    bool CanGo_Internal(BaseObject self, Vector3Int cellPos, bool ignoreObjects = false, bool ignoreSemiWall = false)
     {
         if (cellPos.x < MinX || cellPos.x > MaxX)
             return false;
@@ -254,7 +307,9 @@ public class MapManager
         if (ignoreObjects == false)
         {
             BaseObject obj = GetObject(cellPos);
-            if (obj != null)
+
+            // 자기 자신은 스킵
+            if (obj != null && obj != self)
                 return false;
         }
 
@@ -309,7 +364,7 @@ public class MapManager
 
     // A* 알고리즘
     // maxDepth에 따라 효율이 달라진다.
-    public List<Vector3Int> FindPath(Vector3Int startCellPos, Vector3Int destCellPos, int maxDepth = 10)
+    public List<Vector3Int> FindPath(BaseObject self, Vector3Int startCellPos, Vector3Int destCellPos, int maxDepth = 10)
     {
         // 리스트가 아닌 
         // 지금까지 제일 좋은 후보 기록.
@@ -355,7 +410,7 @@ public class MapManager
                 Vector3Int next = pos + delta;
 
                 // 갈 수 없는 장소면 스킵.
-                if (CanGo(next) == false)
+                if (CanGo(self, next) == false)
                     continue;
 
                 // 예약 진행

@@ -242,10 +242,10 @@ public class Hero : Creature
             return false;
 
         // 최소한 목적지가 갈 수 있는 곳인지 확인
-        if (Managers.mapManager.CanGo(destCellPos, ignoreObjects: true) == false)
+        if (Managers.mapManager.CanGo(this, destCellPos, ignoreObjects: true) == false)
             return false;
 
-        List<Vector3Int> path = Managers.mapManager.FindPath(CellPos, destCellPos, 100);
+        List<Vector3Int> path = Managers.mapManager.FindPath(this, CellPos, destCellPos, 100);
 
         // 못 찾으면 실패
         if (path.Count < 2)

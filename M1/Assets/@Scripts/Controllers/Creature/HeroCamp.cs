@@ -46,7 +46,7 @@ public class HeroCamp : BaseObject
         }
 
         // Camp는 그 위치로 갈 수 있느냐 없느냐 정도만 체크
-        if (Managers.mapManager.CanGo(newPos, ignoreObjects: true, ignoreSemiWall: true) == false)
+        if (Managers.mapManager.CanGo(null, newPos, ignoreObjects: true, ignoreSemiWall: true) == false)
         {
             return;
         }
